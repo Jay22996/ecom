@@ -12,13 +12,13 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5000');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/A_ecom')
+mongoose.connect('mongodb+srv://rutikvasani370:KeV52fMr9mz2NIE3@cluster0.lcvh4.mongodb.net/')
   .then(() => console.log('Connected!'));
 /**
  * Create HTTP server.
