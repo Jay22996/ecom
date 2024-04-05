@@ -57,8 +57,6 @@ exports.verify = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  var otp1 = req.body.otp;
-  if (otp1 === otp) {
     req.body.email = email;
     req.body.password = password;
     var data = await userModel.create(req.body);
@@ -74,12 +72,6 @@ exports.register = async (req, res) => {
       data2,
       data3
     });
-  } else {
-    res.status(400).json({
-      status: "OTP not match",
-      data,
-    });
-  }
 };
 
 exports.login = async (req, res) => {

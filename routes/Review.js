@@ -5,11 +5,10 @@ const { addlikelist, unlikelist, showlikelist } = require('../Controller/Like_co
 var router = express.Router();
 
 
-router.post('/reviewadd/:id',Reviewall)
+// router.post('/reviewadd/:id',Reviewall)
 router.post('/reviewupdate/:id',Reviewupdate)
 router.get('/reviewfine/:id',Reviewfine)
-router.get('/reviewdelete/:id',Reviewdelete)
-router.get('/reviewdelete/:id',Reviewdelete)
+router.get('/reviewdelete/:id/:rid',Reviewdelete)
 router.post("/likeproduct/:id",addlikelist)
 router.post("/unlike/:id",unlikelist)
 router.get("/showlike/:id",showlikelist)
