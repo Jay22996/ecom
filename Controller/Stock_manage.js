@@ -21,32 +21,24 @@ exports.stockall = async (req,res)=>{
 
 exports.stockadd = async (req,res)=>{
     var id = req.params.id
-    var branchId = req.body.branch_id
-    var quantitys = req.body.quantitys
+    // var branchId = req.body.branch_id
+    // var quantitys = req.body.quantitys
 
-    var data = await stock.findOneAndUpdate({"product_id":id},{
-        $push: {
-            quanitity: {
-                branch_id: branchId,
-                quanititys: quantitys
-            }
-        }
-    })
+    var data = await stock.findOneAndUpdate({"product_id":id},req.body)
     res.status(200).json({
-        status:"add",
+        status:"update",
         data
     })
 }
 
-exports.stockupdate = async (req,res)=>{
-    var quantitys = req.body.quantitys
-    var id = req.params.id
-    var branchId=req.params.bid
+// exports.stockupdate = async (req,res)=>{
+//     var quantitys = req.body.quantitys
+//     var id = req.params.id
+//     var branchId=req.params.bid
 
-    var data = await stock.updateOne({product_id:id,"quanitity.branch_id":branchId},
-    { $set: { 'quanitity.$.quanititys': quantitys } })
-    res.status(200).json({
-        status:"updated",
-        data
-    })
-}
+//     var data = await stock.findByIdAndUpdate({product_id:id},req.body)
+//     res.status(200).json({
+//         status:"updated",
+//         data
+//     })
+// }

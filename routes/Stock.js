@@ -5,7 +5,7 @@ var router = express.Router();
 router.post('/:id',stockadd)
 router.get('/showallstock',stock)
 router.get('/showstockone/:id',stockall)
-router.post("/updatestock/:id/:bid",stockupdate)
+// router.post("/updatestock/:id/:bid",stockupdate)
 
 
 module.exports = router;
