@@ -46,7 +46,7 @@ app.use('/category', catRouter);
 app.use('/product', proRouter);
 app.use('/branch', branchRouter);
 app.use('/stock', stockRouter);
-app.use("/abs",absRouter)
+app.use("/ads",absRouter)
 app.use("/coupne",coupleRouter)
 app.use("/review",reviewRouter)
 app.use("/address",shippingRouter)

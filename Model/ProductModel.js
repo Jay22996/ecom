@@ -11,8 +11,8 @@ var product_schema = new mongoose.Schema({
     cust_price:{type:Number,default:0.0},
     reseller_price:{type:Number,default:0.0},
     stock_Id:{type: mongoose.Schema.Types.ObjectId,ref:'Product_Stock'},
-    rating_id:{type: mongoose.Schema.Types.ObjectId,ref:'Review'}
-
+    rating_id:{type: mongoose.Schema.Types.ObjectId,ref:'Review'},
+    brand_name:{type: String}
 })
 
 module.exports = mongoose. model('Product_detail',product_schema);
