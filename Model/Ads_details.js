@@ -7,4 +7,4 @@ var Abs_schema = new mongoose.Schema({
     date: {type:String}
 })
 
-module.exports = mongoose. model('Abs_detail ',Abs_schema);
+module.exports = mongoose. model('Abs_detail',Abs_schema);
