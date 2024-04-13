@@ -42,6 +42,6 @@ exports.deleteabs = async (req,res)=>{
     var data = await abs.findByIdAndDelete(id)
     res.status(200).json({
         status:"show abs",
-        data
+        data 
     })
 }
