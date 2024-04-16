@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
     if (isPasswordMatch) {
       res.status(200).json({
         status: "user is logged in",
-        data
+        data:data
       });
     } else {
       res.status(200).json({
