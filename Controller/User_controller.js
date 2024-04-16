@@ -75,7 +75,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  var data = await userModel.find({ email: req.body.email });
+  var data = await userModel.findOne({ email: req.body.email });
   if (data.length == 1) {
     const isPasswordMatch = await bcrypt.compare(
       req.body.password,
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
     if (isPasswordMatch) {
       res.status(200).json({
         status: "user is logged in",
-        data:data
+        data
       });
     } else {
       res.status(200).json({
