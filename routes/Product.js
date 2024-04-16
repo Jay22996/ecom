@@ -10,9 +10,4 @@ router.get('/deleteproduct/:id',deleteproduct)
 router.post('/updateproduct/:id',updateproduct)
 
 
-
-
-
-
-
 module.exports = router;

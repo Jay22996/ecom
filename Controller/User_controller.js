@@ -76,7 +76,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   var data = await userModel.find({ email: req.body.email });
-  console.log(data)
   if (data.length == 1) {
     const isPasswordMatch = await bcrypt.compare(
       req.body.password,
