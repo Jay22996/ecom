@@ -5,7 +5,7 @@ exports.addcoupne = async (req,res)=>{
 
     var find = await coupne.find({ coupne_code: req.body.coupne_code });
     if(find.length == 1){
-        res.status(409).json({
+        res.status(200).json({
             status: "Coupen code is Already exist",
           });
     }else{

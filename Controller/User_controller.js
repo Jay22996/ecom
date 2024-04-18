@@ -116,8 +116,7 @@ exports.finduserid = async (req,res)=>{
 }
 
 exports.updateuser = async (req,res)=>{
-
-    
+  
     var id = req.params.id
     var data = await userModel.findByIdAndUpdate(id,req.body)
     res.status(200).json({
