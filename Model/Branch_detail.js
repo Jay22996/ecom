@@ -9,7 +9,7 @@ var branch_schema = new mongoose.Schema({
     email:{type:String},
     password:{type:String},
     address:{type:String},
-    pincode:{type:Number},
+    pincode:{type:String},
     city:{type:String},
     state:{type:String},
     country:{type:String},
