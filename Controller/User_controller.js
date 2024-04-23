@@ -3,7 +3,7 @@ var cart = require("../Model/Cart");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 var nodemailer = require("nodemailer");
-var like = require("../Model/LikeList")
+var like = require("../Model/LikeList");
 
 var otp = "";
 var email = "";
@@ -57,21 +57,21 @@ exports.verify = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-    req.body.email = email;
-    req.body.password = password;
-    var data = await userModel.create(req.body);
-    var userid = data._id;
-    req.body.user_id = userid;
-    var data2 = await cart.create(req.body);
-    var data2 = await cart.create(req.body);
-    req.body.user_id = userid;
-    var data3 = await like.create(req.body);
-    res.status(200).json({
-      status: "user register",
-      data,
-      data2,
-      data3
-    });
+  req.body.email = email;
+  req.body.password = password;
+  var data = await userModel.create(req.body);
+  var userid = data._id;
+  req.body.user_id = userid;
+  var data2 = await cart.create(req.body);
+  var data2 = await cart.create(req.body);
+  req.body.user_id = userid;
+  var data3 = await like.create(req.body);
+  res.status(200).json({
+    status: "user register",
+    data,
+    data2,
+    data3,
+  });
 };
 
 exports.login = async (req, res) => {
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
     if (isPasswordMatch) {
       res.status(200).json({
         status: "user is logged in",
-        data:data[0]
+        data: data[0],
       });
     } else {
       res.status(200).json({
@@ -98,29 +98,48 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.finduser = async (req,res)=>{
-    var data = await userModel.find()
-    res.status(200).json({
-        status:"find",
-        data
-    })
-}
+exports.finduser = async (req, res) => {
+  var data = await userModel.find();
+  res.status(200).json({
+    status: "find",
+    data,
+  });
+};
 
-exports.finduserid = async (req,res)=>{
-    var id = req.params.id
-    var data = await userModel.findById(id)
-    res.status(200).json({
-        status:"find",
-        data
-    })
-}
+exports.finduserid = async (req, res) => {
+  var id = req.params.id;
+  var data = await userModel.findById(id);
+  res.status(200).json({
+    status: "find",
+    data,
+  });
+};
 
-exports.updateuser = async (req,res)=>{
-  
-    var id = req.params.id
-    var data = await userModel.findByIdAndUpdate(id,req.body)
-    res.status(200).json({
-        status:"done",
-        data
-    })
-}
+exports.updateuser = async (req, res) => {
+  var id = req.params.id;
+  var data = await userModel.findByIdAndUpdate(id, req.body);
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
+exports.updateuserresaller = async (req, res) => {
+  var id = req.params.id;
+  req.body.role = "resaller";
+  var data = await userModel.findByIdAndUpdate(id, req.body);
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
+exports.showreseller = async (req, res) => {
+  var id = req.params.id;
+  req.body.role = "resaller";
+  var data = await userModel.findByIdAndUpdate(id, req.body);
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
