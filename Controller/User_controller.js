@@ -135,9 +135,7 @@ exports.updateuserresaller = async (req, res) => {
 };
 
 exports.showreseller = async (req, res) => {
-  var id = req.params.id;
-  req.body.role = "resaller";
-  var data = await userModel.findByIdAndUpdate(id, req.body);
+  var data = await userModel.find({role:"resaller"});
   res.status(200).json({
     status: "done",
     data,

@@ -10,7 +10,7 @@ router.get('/finduser',finduser)
 router.get('/finduser/:id',finduserid)
 router.post('/updateuser/:id',updateuser)
 router.get('/updatere/:id',updateuserresaller)
-router.get('/showree/:id',showreseller)
+router.get('/showree',showreseller)
 
 
 
