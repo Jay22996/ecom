@@ -13,7 +13,7 @@ router.get('/updatere/:id',updateuserresaller)
 router.get('/showree',showreseller)
 router.post('/sendreq',resallerreqsend)
 router.get('/showreq',showree)
-router.get('/delete',reqdelete)
+router.get('/delete/:id',reqdelete)
 
 
 
