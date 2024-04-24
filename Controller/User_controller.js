@@ -142,6 +142,15 @@ exports.showree = async (req, res) => {
   });
 };
 
+exports.reqdelete = async (req, res) => {
+  var id = req.params.id
+  var data = await ureq.findByIdAndDelete(id)
+  res.status(200).json({
+    status: "delete",
+    data,
+  });
+};
+
 exports.updateuserresaller = async (req, res) => {
   var id = req.params.id;
   var data1 = await ureq.findById(id);
