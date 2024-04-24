@@ -145,9 +145,10 @@ exports.showree = async (req, res) => {
 exports.reqdelete = async (req, res) => {
   var id = req.params.id
   var data = await ureq.findByIdAndDelete(id)
+  var data1 = await ureq.find()
   res.status(200).json({
     status: "delete",
-    data,
+    data1,
   });
 };
 
