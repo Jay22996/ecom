@@ -4,6 +4,8 @@ const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 var nodemailer = require("nodemailer");
 var like = require("../Model/LikeList");
+var ureq = require("../Model/Resellerrrrq");
+
 
 var otp = "";
 var email = "";
@@ -124,10 +126,40 @@ exports.updateuser = async (req, res) => {
   });
 };
 
+exports.resallerreqsend = async (req, res) => {
+  var data = await ureq.create(req.body);
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
+exports.showree = async (req, res) => {
+  var data = await ureq.find().populate("user_id");
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
 exports.updateuserresaller = async (req, res) => {
   var id = req.params.id;
-  req.body.role = "resaller";
-  var data = await userModel.findByIdAndUpdate(id, req.body);
+  var data1 = await ureq.findById(id);
+  var u_id = data1.user_id
+  var gst_no = data1.gst_no
+  var address = data1.address
+  var pin_code = data1.pin_code
+  var city = data1.city
+
+  req.body.role = "reseller";
+  req.body.gst_no = gst_no
+  req.body.address = address
+  req.body.pin_code = pin_code
+  req.body.city = city
+
+  var data = await userModel.findByIdAndUpdate(u_id, req.body);
+  await ureq.findByIdAndDelete(id);
+
   res.status(200).json({
     status: "done",
     data,

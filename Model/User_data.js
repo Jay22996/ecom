@@ -7,7 +7,11 @@ var User_schema = new mongoose.Schema({
     profile_photo :{type : String},
     mobile_number:{type : Number},
     role : {type : String,default:"customer"},
-    gst_no : {type : String}
+    gst_no : {type : String},
+    address : {type: String},
+    city : {type: String},
+    pin_code : {type: String},
+
 })
 
 module.exports = mongoose. model('User_data',User_schema);
