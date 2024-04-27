@@ -91,7 +91,7 @@ exports.order_update = async (req, res) => {
 
 exports.pending_order = async (req, res) => {
 
-    var data = await order.find({status:"pending"})
+    var data = await order.find({status:"pending"}).populate("User_data")
     
     res.status(200).json({
         status: "show",
@@ -101,7 +101,7 @@ exports.pending_order = async (req, res) => {
 
 exports.going_order = async (req, res) => {
 
-    var data = await order.find({status:"on going"})
+    var data = await order.find({status:"on going"}).populate("User_data")
     
     res.status(200).json({
         status: "show",
@@ -111,7 +111,7 @@ exports.going_order = async (req, res) => {
 
 exports.shipping_order = async (req, res) => {
 
-    var data = await order.find({status:"shipping"})
+    var data = await order.find({status:"shipping"}).populate("User_data")
     
     res.status(200).json({
         status: "show",
@@ -121,10 +121,20 @@ exports.shipping_order = async (req, res) => {
 
 exports.past_order = async (req, res) => {
 
-    var data = await order.find({status:"past order"})
+    var data = await order.find({status:"past order"}).populate("User_data")
     
     res.status(200).json({
         status: "show",
         data:data
     });
 }
+
+// exports.past = async (req, res) => {
+
+//     var data = await order.updateMany({user_id:"661e0b488944071320e80e1f",address:"mota",total_amount:"300000"})
+    
+//     res.status(200).json({
+//         status: "show",
+//         data:data
+//     });
+// }
