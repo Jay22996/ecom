@@ -88,3 +88,43 @@ exports.order_update = async (req, res) => {
         data:data
     });
 }
+
+exports.pending_order = async (req, res) => {
+
+    var data = await order.find({status:"pending"})
+    
+    res.status(200).json({
+        status: "show",
+        data:data
+    });
+}
+
+exports.going_order = async (req, res) => {
+
+    var data = await order.find({status:"on going"})
+    
+    res.status(200).json({
+        status: "show",
+        data:data
+    });
+}
+
+exports.shipping_order = async (req, res) => {
+
+    var data = await order.find({status:"shipping"})
+    
+    res.status(200).json({
+        status: "show",
+        data:data
+    });
+}
+
+exports.past_order = async (req, res) => {
+
+    var data = await order.find({status:"past order"})
+    
+    res.status(200).json({
+        status: "show",
+        data:data
+    });
+}

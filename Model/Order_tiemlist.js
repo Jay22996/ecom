@@ -8,7 +8,8 @@ var orderitel_schema = new mongoose.Schema({
     sub_total: {type:Number,default:0.0},
     barnch_id:{type: mongoose.Schema.Types.ObjectId,ref:'branch_detail'},
     status:{type:String,default:"pending"},
-    shipment_id:{type: mongoose.Schema.Types.ObjectId,ref:'Shipment_detail'}
+    shipment_id:{type: mongoose.Schema.Types.ObjectId,ref:'Shipment_detail'},
+    SKU:{type:String},
 
 })
 

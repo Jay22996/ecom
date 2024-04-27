@@ -12,7 +12,7 @@ var Order_schema = new mongoose.Schema({
     orderitems:[{
         orderitem_id:{type: mongoose.Schema.Types.ObjectId,ref:'orderitem_detail'}
     }],
-    let:{type:String},
+    lat:{type:String},
     log:{type:String},
     order_merchand:{type:String},
     address:{type:String},

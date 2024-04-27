@@ -47,7 +47,6 @@ exports.showproduct = async (req,res)=>{
         status:"find",
         data
     })
-
 }
 
 exports.deleteproduct = async (req,res)=>{
@@ -71,5 +70,14 @@ exports.updateproduct = async (req,res)=>{
         status:"update",
         data
     })
+}
 
+exports.updateproduct = async (req,res)=>{
+    var id = req.params.id
+    var data = await product.findByIdAndUpdate({_id:id},{name:"jay"})
+
+    res.status(200).json({
+        status:"update",
+        data
+    })
 }
