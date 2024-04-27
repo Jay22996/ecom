@@ -18,7 +18,7 @@ router.get("/pending_order",pending_order)
 router.get("/going_order",going_order)
 router.get("/shipping_order",shipping_order)
 router.get("/past_order",past_order)
-// router.get("/past",past)
+router.get("/past",past)
 
 
 
