@@ -89,6 +89,17 @@ exports.order_update = async (req, res) => {
     });
 }
 
+exports.order_show = async (req, res) => {
+
+    var id = req.params.id
+    var data = await order.findById(id).populate("user_id").populate("orderitems.orderitem_id")
+    
+    res.status(200).json({
+        status: "show",
+        data:data
+    });
+}
+
 exports.pending_order = async (req, res) => {
 
     var data = await order.find({status:"pending"}).populate("user_id")

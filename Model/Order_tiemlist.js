@@ -9,8 +9,8 @@ var orderitel_schema = new mongoose.Schema({
     barnch_id:{type: mongoose.Schema.Types.ObjectId,ref:'branch_detail'},
     status:{type:String,default:"pending"},
     shipment_id:{type: mongoose.Schema.Types.ObjectId,ref:'Shipment_detail'},
-    SKU:{type:String},
-
+    SKU:{type:String}
+    
 })
 
 module.exports = mongoose. model('orderitem_detail',orderitel_schema);
