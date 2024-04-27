@@ -11,6 +11,8 @@ var User_schema = new mongoose.Schema({
     address : {type: String},
     city : {type: String},
     pin_code : {type: String},
+    lat:{type: String},
+    lon:{type: String}
 
 })
 
