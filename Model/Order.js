@@ -17,7 +17,6 @@ var Order_schema = new mongoose.Schema({
     order_merchand:{type:String},
     address:{type:String},
     payment_id:{type: mongoose.Schema.Types.ObjectId,ref:'payment_detail'}
-
 })
 
 module.exports = mongoose. model('Order_details',Order_schema);
