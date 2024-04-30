@@ -65,7 +65,6 @@ exports.register = async (req, res) => {
   var userid = data._id;
   req.body.user_id = userid;
   var data2 = await cart.create(req.body);
-  var data2 = await cart.create(req.body);
   req.body.user_id = userid;
   var data3 = await like.create(req.body);
   res.status(200).json({
