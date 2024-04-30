@@ -5,8 +5,8 @@ var router = express.Router();
 
 
 router.post('/addtocart/:id',add_to_cart)
-router.post('/removetocard/:id',remove_to_cart)
-router.get('/showcard/:id',show_show)
+router.post('/removetocart/:id',remove_to_cart)
+router.get('/showcart/:id',show_show)
 router.post('/updatetocart/:id',update_to_cart)
 router.post("/ordergenerat",order_generate)
 router.post("/placeorder/:id",place_order)
