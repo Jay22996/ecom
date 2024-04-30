@@ -22,8 +22,8 @@ var Order_schema = new mongoose.Schema({
     pincode:{type:String},
     comment:{type:String},
     address_type:{type:String},
-    payment_id:{type: mongoose.Schema.Types.ObjectId,ref:'payment_detail'},
-    shipment_id:{type: mongoose.Schema.Types.ObjectId,ref:'Shipment_detail'},
+    payment_id:{type:String},
+    shipment_id:{type:String},
 
 })
 
