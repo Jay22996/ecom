@@ -158,6 +158,15 @@ exports.going_order = async (req, res) => {
   });
 };
 
+exports.show_all = async (req, res) => {
+    var data = await order.find();
+  
+    res.status(200).json({
+      status: "show",
+      data: data,
+    });
+  };
+
 exports.shipping_order = async (req, res) => {
   var data = await order.find({ status: "shipping" }).populate("user_id");
 
@@ -187,9 +196,7 @@ exports.past_order = async (req, res) => {
 
 exports.past = async (req, res) => {
   var data = await order.updateMany({
-    user_id: "661e0b488944071320e80e1f",
-    address: "mota",
-    total_amount: "300000",
+    ordermode:"online"
   });
 
   res.status(200).json({
