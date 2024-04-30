@@ -21,7 +21,18 @@ exports.remove_to_cart = async (req,res)=>{
     var pid = req.body.product_id
     var data = await cart.findOneAndUpdate({user_id:id},{$pull:{product_list:{product_id:pid}}})
     res.status(200).json({
-        status:"add to cart",
+        status:"remove to cart",
+        data
+    })
+
+}
+
+exports.show_show = async (req,res)=>{
+
+    var id = req.params.id
+    var data = await cart.find({user_id:id}).populate("user_id").populate("product_list.product_id")
+    res.status(200).json({
+        status:"show cart",
         data
     })
 

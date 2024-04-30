@@ -18,7 +18,7 @@ exports.unlikelist = async (req,res)=>{
     var data = await like.findOneAndUpdate({"user_id":id},{$pull:{"product_list":{"product_id":product_id}}})
 
     res.status(200).json({
-        status:"add to likelist",
+        status:"remove to likelist",
         data
     })
 }
@@ -28,7 +28,7 @@ exports.showlikelist = async (req,res)=>{
     var data = await like.find({"user_id":id}).populate("product_list.product_id")
 
     res.status(200).json({
-        status:"add to likelist",
+        status:"show likelist",
         data
     })
 }

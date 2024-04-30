@@ -1,11 +1,12 @@
 var express = require('express');
-const { add_to_cart, remove_to_cart, update_to_cart, order_generate, place_order, order_update, pending_order, going_order, shipping_order, past_order, past, order_show } = require('../Controller/Order_controlle');
+const { add_to_cart, remove_to_cart, update_to_cart, order_generate, place_order, order_update, pending_order, going_order, shipping_order, past_order, past, order_show, show_show } = require('../Controller/Order_controlle');
 const { add_shipment, update_shipment, Delete_shipment, find_shipment } = require('../Controller/Shipment_controller');
 var router = express.Router();
 
 
 router.post('/addtocart/:id',add_to_cart)
 router.post('/removetocard/:id',remove_to_cart)
+router.get('/showcard/:id',show_show)
 router.post('/updatetocart/:id',update_to_cart)
 router.post("/ordergenerat",order_generate)
 router.post("/placeorder/:id",place_order)
