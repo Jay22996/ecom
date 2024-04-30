@@ -170,9 +170,18 @@ exports.shipping_order = async (req, res) => {
 exports.past_order = async (req, res) => {
   var data = await order.find({ status: "past order" }).populate("user_id");
 
+  function calculateTotalAmount(data) {
+    let total = 0;
+    data.forEach(data => {
+      total += data.total_amount;
+    });
+    return total;
+  }
+  const totalAmount = calculateTotalAmount(data);
+
   res.status(200).json({
     status: "show",
-    data: data,
+    data: data,totalAmount
   });
 };
 
