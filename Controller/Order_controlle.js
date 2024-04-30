@@ -159,11 +159,13 @@ exports.going_order = async (req, res) => {
 };
 
 exports.show_all = async (req, res) => {
-    var data = await order.find();
+    var data = await order.find({ordermode:"offline"});
+    var data1 = await order.find({ordermode:"online"});
+
   
     res.status(200).json({
       status: "show",
-      data: data,
+      data: data,data1
     });
   };
 
