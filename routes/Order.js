@@ -1,5 +1,5 @@
 var express = require('express');
-const { add_to_cart, remove_to_cart, update_to_cart, order_generate, place_order, order_update, pending_order, going_order, shipping_order, past_order, past, order_show, show_show } = require('../Controller/Order_controlle');
+const { add_to_cart, remove_to_cart, update_to_cart, order_generate, place_order, order_update, pending_order, going_order, shipping_order, past_order, past, order_show, show_show, show_date } = require('../Controller/Order_controlle');
 const { add_shipment, update_shipment, Delete_shipment, find_shipment } = require('../Controller/Shipment_controller');
 var router = express.Router();
 
@@ -21,6 +21,9 @@ router.get("/shipping_order",shipping_order)
 router.get("/past_order",past_order)
 router.get("/ordershow/:id",order_show)
 router.get("/past",past)
+router.get("/showdate",show_date)
+
+
 
 
 
