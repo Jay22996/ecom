@@ -1,9 +1,36 @@
 var branch = require("../Model/Branch_detail");
+var rev = require("../Model/Branch_revenew");
+
 
 
 exports.addbranch = async (req,res)=>{
 
     var data = await branch.create(req.body)
+    var id = data._id
+    req.body.branch_id = id
+    var data = await rev.create(req.body)
+
+    var data2 = await rev.findOneAndUpdate({branch_id:id},{
+        $set: {
+            revenew: [
+                { month: "January" },
+                { month: "February" },
+                { month: "March" },
+                { month: "April" },
+                { month: "May" },
+                { month: "June" },
+                { month: "July" },
+                { month: "August" },
+                { month: "September" },
+                { month: "October" },
+                { month: "November" },
+                { month: "December" },
+
+            ]
+        }
+    })
+
+
     res.status(200).json({
         status:"add branch",
         data

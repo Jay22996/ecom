@@ -1,6 +1,10 @@
 var order = require("../Model/Order");
 var cart = require("../Model/Cart");
 var orderitel = require("../Model/Order_tiemlist");
+var product = require("../Model/ProductModel");
+var rev = require("../Model/Branch_revenew");
+
+
 
 exports.add_to_cart = async (req, res) => {
   var id = req.params.id;
@@ -89,7 +93,7 @@ exports.show_date = async (req, res) => {
     const orderDate = data.order_date;
     return (
       orderDate.getFullYear() === today.getFullYear() &&
-      orderDate.getMonth() === today.getMonth() &&
+      orderDate.getMonth()+ 1 === today.getMonth()+ 1 &&
       orderDate.getDate() === today.getDate()
     );
   });
@@ -103,6 +107,9 @@ exports.show_date = async (req, res) => {
 exports.place_order = async (req, res) => {
   var id = req.params.id;
   req.body.order_id = id;
+  var product_id = req.body.product_id
+  var produ = await product.findByIdAndUpdate({ _id: product_id },
+    { $inc: { selling: 1 } })
   var data = await orderitel.create(req.body);
 
   var orderitelid = data._id;
@@ -120,6 +127,27 @@ exports.place_order = async (req, res) => {
 exports.order_update = async (req, res) => {
   var id = req.params.id;
   var data = await order.findByIdAndUpdate(id, req.body);
+  var data1 = data.branch_id
+  var total_amount = data.total_amount
+
+
+  if(req.body.status ==="past order"){
+    const today = new Date();
+    const month = today.toLocaleString('default', { month: 'long' });
+    console.log(month)
+
+    var data = await rev.findOneAndUpdate({branch_id:data1},
+      {
+        $set: {
+          "revenew.$[elem].m_rev": +total_amount,
+        },
+      },
+      {
+        arrayFilters: [{ "elem.month": month }],
+        new: true,
+      });
+    
+  }
 
   res.status(200).json({
     status: "update done",
@@ -197,12 +225,14 @@ exports.past_order = async (req, res) => {
 };
 
 exports.past = async (req, res) => {
-  var data = await order.updateMany({
-    ordermode:"online"
-  });
-
-  res.status(200).json({
-    status: "show",
-    data: data,
-  });
+  // var data = await order.updateMany({
+  //   selling:101
+  // });
+  const today = new Date();
+  const month = today.toLocaleString('default', { month: 'long' });
+  console.log(month);
+  // res.status(200).json({
+  //   status: "show",
+  //   data: data,
+  // });
 };

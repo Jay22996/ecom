@@ -16,7 +16,15 @@ var Order_schema = new mongoose.Schema({
     log:{type:String},
     order_merchand:{type:String},
     address:{type:String},
-    payment_id:{type: mongoose.Schema.Types.ObjectId,ref:'payment_detail'}
+    city:{type:String},
+    state:{type:String},
+    country:{type:String},
+    pincode:{type:String},
+    comment:{type:String},
+    address_type:{type:String},
+    payment_id:{type: mongoose.Schema.Types.ObjectId,ref:'payment_detail'},
+    shipment_id:{type: mongoose.Schema.Types.ObjectId,ref:'Shipment_detail'},
+
 })
 
 module.exports = mongoose. model('Order_details',Order_schema);

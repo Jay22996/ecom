@@ -7,6 +7,7 @@ var product_schema = new mongoose.Schema({
     photos:[{
         type:String
     }],
+    selling:{type:Number,default:0},
     price:{type:Number,default:0.0},
     cust_price:{type:Number,default:0.0},
     reseller_price:{type:Number,default:0.0},
