@@ -42,6 +42,21 @@ exports.findyou = async (req, res) => {
     data,
   });
 };
+exports.coupne_status = async (req, res) => {
+    var use = "Used";
+    req.body.userOrnot = use;
+    var coupne_code = req.body.coupne_code;
+    var data1 = await coupne.findOneAndUpdate(
+      { coupne_code: coupne_code },
+      req.body
+    );
+
+    res.status(200).json({
+        status: "use",
+        data1
+
+      });
+}
 
 
 
@@ -51,10 +66,10 @@ exports.coupneuse = async (req, res) => {
   var data1 = await coupne.findOne({ coupne_code: coupne_code });
 
   if (data1 !== null) {
-    console.log(data1.userOrnot);
     if (data1.userOrnot == "not_use") {
       res.status(200).json({
-        status: "not_use",
+        status: "not use",
+        data1
       });
     } else {
       res.status(200).json({
