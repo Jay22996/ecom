@@ -165,8 +165,7 @@ exports.order_update = async (req, res) => {
 };
 
 exports.rev_show = async (req, res) => {
-  var data = await rev
-    .find().populate("branch_id")
+  var data = await rev.find().populate("branch_id")
 
   res.status(200).json({
     status: "show",

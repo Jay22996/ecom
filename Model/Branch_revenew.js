@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var branch_schema = new mongoose.Schema({
-    branch_id :{type: mongoose.Schema.Types.ObjectId,ref:'brand_name'},
+    branch_id :{type: mongoose.Schema.Types.ObjectId,ref:'branch_detail'},
     revenew : [
     {
         month:{type:String},
