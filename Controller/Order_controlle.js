@@ -165,10 +165,8 @@ exports.order_update = async (req, res) => {
 };
 
 exports.rev_show = async (req, res) => {
-  var id = req.params.id;
   var data = await rev
-    .findOne({branch_id:id})
-    .populate("branch_id")
+    .find().populate("branch_id")
 
   res.status(200).json({
     status: "show",

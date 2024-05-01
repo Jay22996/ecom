@@ -23,7 +23,7 @@ router.get("/ordershow/:id",order_show)
 router.get("/past",past)
 router.get("/showdate",show_date)
 router.get("/showall",show_all)
-router.get("/showrew/:id",rev_show)
+router.get("/showrew",rev_show)
 
 
 module.exports = router;
