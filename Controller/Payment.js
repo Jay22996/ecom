@@ -1,8 +1,17 @@
 var pay = require("../Model/Payment");
+var order = require("../Model/Order");
+
 
 exports.payment = async (req,res)=>{
 
     var data = await pay.create(req.body)
+    var id = data._id
+    var order_id = data.order_id
+
+
+    req.body.payment_id = id
+    var data = await order.findByIdAndUpdate(order_id,req.body)
+
     res.status(200).json({
         status:"pament",
         data
