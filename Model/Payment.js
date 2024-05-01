@@ -5,8 +5,10 @@ var payment_schema = new mongoose.Schema({
     payment_date: {type: Date},
     amount:{type: Number,default:0.0},
     payment_Status:{type:String},
+    order_id:{type: [mongoose.Schema.Types.ObjectId, String],
+        ref: 'Order_details',
+        default: null},
     payment_method:{type:String},
-    order_id:{type: mongoose.Schema.Types.ObjectId,ref:'Order_details'}
 
 })
 
