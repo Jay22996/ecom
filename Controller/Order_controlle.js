@@ -125,32 +125,53 @@ exports.place_order = async (req, res) => {
 };
 
 exports.order_update = async (req, res) => {
-  var id = req.params.id;
-  var data = await order.findByIdAndUpdate(id, req.body);
-  var data1 = data.branch_id
-  var total_amount = data.total_amount
+  try {
+    var id = req.params.id;
+    var data = await order.findByIdAndUpdate(id, req.body);
+    var data1 = data.branch_id;
+    var total_amount = data.total_amount;
+    // console.log(data1);
+    // console.log(total_amount);
 
+    if (req.body.status === "past order") {
+      const today = new Date();
+      const month = today.toLocaleString('default', { month: 'long' });
+      // console.log(month);
 
-  if(req.body.status ==="past order"){
-    const today = new Date();
-    const month = today.toLocaleString('default', { month: 'long' });
-    console.log(month)
-
-    var data = await rev.findOneAndUpdate({branch_id:data1},
-      {
-        $set: {
-          "revenew.$[elem].m_rev": +total_amount,
+      var updatedData = await rev.findOneAndUpdate(
+        { branch_id: data1 },
+        {
+          $inc: {
+            "revenew.$[elem].m_rev": total_amount
+          }
         },
-      },
-      {
-        arrayFilters: [{ "elem.month": month }],
-        new: true,
-      });
-    
+        {
+          arrayFilters: [{ "elem.month": month }],
+          new: true
+        }
+      );
+
+      // Assuming you want to retrieve the updated document
+      // console.log("Updated Data:", updatedData);
+    }
+
+    res.status(200).json({
+      status: "update done",
+      data: data,updatedData
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
+};
+
+exports.rev_show = async (req, res) => {
+  var id = req.params.id;
+  var data = await rev
+    .findOne({branch_id:id})
+    .populate("branch_id")
 
   res.status(200).json({
-    status: "update done",
+    status: "show",
     data: data,
   });
 };
@@ -228,9 +249,9 @@ exports.past = async (req, res) => {
   // var data = await order.updateMany({
   //   selling:101
   // });
-  const today = new Date();
-  const month = today.toLocaleString('default', { month: 'long' });
-  console.log(month);
+  // const today = new Date();
+  // const month = today.toLocaleString('default', { month: 'long' });
+  // console.log(month);
   // res.status(200).json({
   //   status: "show",
   //   data: data,

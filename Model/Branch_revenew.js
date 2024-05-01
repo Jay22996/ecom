@@ -4,7 +4,7 @@ var branch_schema = new mongoose.Schema({
     branch_id :{type: mongoose.Schema.Types.ObjectId,ref:'brand_name'},
     revenew : [
     {
-        month:{type:String,default:"January"},
+        month:{type:String},
         m_rev:{type:Number,default:0.0}
     }
 ]
