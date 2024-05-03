@@ -13,7 +13,7 @@ var product_schema = new mongoose.Schema({
     reseller_price:{type:Number,default:0.0},
     stock_Id:{type: Number},
     rating_id:{type: mongoose.Schema.Types.ObjectId,ref:'Review'},
-    brand_name:{type: String},
+    brand_name:{type: mongoose.Schema.Types.ObjectId,ref:'brand_name'},
     SKU:{type: String}
 })
 

@@ -18,14 +18,4 @@ router.post('/forgetpass/:id',forget_pass)
 router.post('/finduser',find_data)
 router.get('/find',find)
 
-
-
-
-
-
-
-
-
-
-
 module.exports = router;
