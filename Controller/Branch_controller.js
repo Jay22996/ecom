@@ -20,7 +20,7 @@ exports.addbranch = async (req,res)=>{
     var data2 = await rev.findOneAndUpdate({branch_id:id},{
         $set: {
             revenew: [
-                { month: "January",_id:"ddd" },
+                { month: "January"},
                 { month: "February" },
                 { month: "March" },
                 { month: "April" },

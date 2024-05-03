@@ -1,6 +1,8 @@
 var product = require("../Model/ProductModel");
 var p_stock = require("../Model/Product_stock");
 var rating = require("../Model/Review_detail");
+var cat = require("../Model/CategoryModel");
+
 
 
 exports.addproduct = async (req,res)=>{
@@ -18,6 +20,10 @@ exports.addproduct = async (req,res)=>{
     var ratingg = await rating.create(req.body)
     var rid = ratingg._id
     var data = await product.findByIdAndUpdate({_id:name},{rating_id:rid})
+
+    var data = await cat.findByIdAndUpdate(req.body.category_id,{ $inc: { products: 1 } })
+    
+
 
     var stock1 = await p_stock.findByIdAndUpdate(stock_Id,req.body)
     res.status(200).json({

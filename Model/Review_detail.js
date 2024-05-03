@@ -5,7 +5,7 @@ var Review_schema = new mongoose.Schema({
   rating: [
     {
       user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User_data" },
-      rating: { type: Number, default: 0.0 },
+      rating: { type: Number, default: 1 },
       comment: { type: String },
       review_date: { type: Date },
     },

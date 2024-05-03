@@ -5,10 +5,9 @@ var User_schema = new mongoose.Schema({
     email : {type : String},
     password : {type : String},
     profile_photo :{type : String},
-    mobile_number:{type : Number},
+    mobile_number:{type : String},
     role : {type : String,default:"customer"},
     gst_no : {type : String,default:""},
-    
     // address : {type: String},
     // city : {type: String},
     // pin_code : {type: String},

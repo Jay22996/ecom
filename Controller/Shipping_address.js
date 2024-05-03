@@ -39,3 +39,13 @@ exports.update_address = async (req,res)=>{
         data
     })
 }
+
+exports.find = async (req,res)=>{
+
+    id = req.params.id
+    var data = await address.find({type:"permanent"})
+    res.status(200).json({
+        status:"find",
+        data
+    })
+}
