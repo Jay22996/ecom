@@ -136,7 +136,6 @@ exports.order_update = async (req, res) => {
     if (req.body.status === "past order") {
       const today = new Date();
       const month = today.toLocaleString('default', { month: 'long' });
-      // console.log(month);
 
       var updatedData = await rev.findOneAndUpdate(
         { branch_id: data1 },

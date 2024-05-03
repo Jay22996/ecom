@@ -1,5 +1,5 @@
 var express = require('express');
-const { addbranch, updatebranch, datelebranch, showallbranch, showbranch } = require('../Controller/Branch_controller');
+const { addbranch, updatebranch, datelebranch, showallbranch, showbranch, s } = require('../Controller/Branch_controller');
 var router = express.Router();
 
 
@@ -8,5 +8,7 @@ router.post('/updatebranch/:id',updatebranch)
 router.get('/deletebranch/:id',datelebranch)
 router.get('/showbranch',showallbranch)
 router.get('/showbranch/:id',showbranch)
+router.post('/a/:id',s)
+
 
 module.exports = router;

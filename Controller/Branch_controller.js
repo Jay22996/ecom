@@ -1,7 +1,14 @@
 var branch = require("../Model/Branch_detail");
 var rev = require("../Model/Branch_revenew");
 
+exports.s = async (req,res)=>{
 
+    var data = await rev.create(req.body)
+    res.status(200).json({
+        status:"show branch",
+        data
+    })
+}
 
 exports.addbranch = async (req,res)=>{
 
