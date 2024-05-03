@@ -1,5 +1,5 @@
 var express = require('express');
-const { verify, register, login, finduser, finduserid, updateuser, updateuserresaller, showreseller, resallerreqsend, showree, reqdelete, forget_pass, find_data } = require('../Controller/User_controller');
+const { verify, register, login, finduser, finduserid, updateuser, updateuserresaller, showreseller, resallerreqsend, showree, reqdelete, forget_pass, find_data, find } = require('../Controller/User_controller');
 var router = express.Router();
 
 /* GET home page. */
@@ -16,6 +16,8 @@ router.get('/showreq',showree)
 router.get('/delete/:id',reqdelete)
 router.post('/forgetpass/:id',forget_pass)
 router.post('/finduser',find_data)
+router.get('/find',find)
+
 
 
 

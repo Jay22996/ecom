@@ -107,6 +107,14 @@ exports.finduser = async (req, res) => {
   });
 };
 
+exports.find = async (req, res) => {
+  var data = await userModel.find().populate("p_address");
+  res.status(200).json({
+    status: "find",
+    data,
+  });
+};
+
 exports.finduserid = async (req, res) => {
   var id = req.params.id;
   var data = await userModel.findById(id);
