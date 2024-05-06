@@ -127,7 +127,7 @@ exports.place_order = async (req, res) => {
 };
 
 exports.order_update = async (req, res) => {
-  try {
+  // try {
     var id = req.params.id;
     var data = await order.findByIdAndUpdate(id, req.body);
 
@@ -156,9 +156,9 @@ exports.order_update = async (req, res) => {
       status: "update done",
       data: data,updatedData
     });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  // } catch (error) {
+  //   res.status(500).json({ error: error });
+  // }
 };
 
 exports.rev_show = async (req, res) => {
