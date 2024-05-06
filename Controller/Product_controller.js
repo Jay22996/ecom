@@ -34,7 +34,6 @@ exports.addproduct = async (req,res)=>{
     res.status(200).json({
         status:"add",
         data,
-        stock,
         stock1
     })
 }
