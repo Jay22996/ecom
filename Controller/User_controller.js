@@ -208,6 +208,7 @@ exports.forget_pass = async (req, res) => {
 exports.find_data = async (req, res) => {
 
   var data = await userModel.find({email:req.body.email});
+  var id = data[0]._id
 
   if (data.length == 1) {
     otp = otpGenerator.generate(6, {
@@ -234,8 +235,7 @@ exports.find_data = async (req, res) => {
 
       res.status(200).json({
         status: `done`,
-        otp: otp,
-        id:data._id
+        otp: otp,id
       });
     } catch (error) {
       console.error("Error sending email:", error);
