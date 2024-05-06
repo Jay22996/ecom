@@ -211,8 +211,7 @@ exports.find_data = async (req, res) => {
 
   if (data.length == 1) {
     otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      specialChars: false,
+      upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets: false
     });
     email = req.body.email;
     try {
@@ -236,6 +235,7 @@ exports.find_data = async (req, res) => {
       res.status(200).json({
         status: `done`,
         otp: otp,
+        id:data._id
       });
     } catch (error) {
       console.error("Error sending email:", error);
