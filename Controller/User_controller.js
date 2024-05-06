@@ -209,9 +209,47 @@ exports.find_data = async (req, res) => {
 
   var data = await userModel.find({email:req.body.email});
 
- res.status(200).json({
-      status: "done",
-      data
+  if (data.length == 1) {
+    otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      specialChars: false,
     });
+    email = req.body.email;
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "studentcreative79@gmail.com",
+          pass: "mgvywuvapoijukrb",
+        },
+      });
+
+      const mailOptions = {
+        from: "studentcreative79@gmail.com",
+        to: `${email}`,
+        subject: "One Time Otp",
+        text: `${otp}`,
+      };
+
+      await transporter.sendMail(mailOptions);
+
+      res.status(200).json({
+        status: `done`,
+        otp: otp,
+      });
+    } catch (error) {
+      console.error("Error sending email:", error);
+
+      res.status(500).json({
+        status: "Error",
+        message: "Failed to send email",
+        error: error.message,
+      });
+    }
+  } else {
+    res.status(200).json({
+      status: `user not found`,
+    });
+  }
 
 }
