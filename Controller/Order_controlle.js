@@ -130,20 +130,16 @@ exports.order_update = async (req, res) => {
   try {
     var id = req.params.id;
     var data = await order.findByIdAndUpdate(id, req.body);
-    var data1 = data.branch_id;
-    var total_amount = data.total_amount;
-    // console.log(data1);
-    // console.log(total_amount);
 
     if (req.body.status === "past order") {
       const today = new Date();
       const month = today.toLocaleString('default', { month: 'long' });
 
       var updatedData = await rev.findOneAndUpdate(
-        { branch_id: data1 },
+        { branch_id: data.branch_id },
         {
           $inc: {
-            "revenew.$[elem].m_rev": total_amount
+            "revenew.$[elem].m_rev": data.total_amount
           }
         },
         {
