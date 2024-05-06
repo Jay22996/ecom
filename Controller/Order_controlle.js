@@ -175,7 +175,7 @@ exports.rev_show = async (req, res) => {
 exports.order_show = async (req, res) => {
   var id = req.params.id;
   var data = await order
-    .findById(id)
+    .find({user_id:id})
     .populate("user_id")
     .populate("orderitems.orderitem_id");
 
