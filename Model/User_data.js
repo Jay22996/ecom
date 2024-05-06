@@ -13,7 +13,8 @@ var User_schema = new mongoose.Schema({
     // city : {type: String},
     // pin_code : {type: String},
     lat:{type: String},
-    lon:{type: String}
+    lon:{type: String},
+    token:{type: String}
 
 })
 
