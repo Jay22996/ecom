@@ -9,12 +9,12 @@ var brand = require("../Model/Brand");
 
 exports.addproduct = async (req,res)=>{
 
-    var stock = await p_stock.create(req.body)
-    var stock_Id = stock._id
+    // var stock = await p_stock.create(req.body)
+    // var stock_Id = stock._id
 
     var id = req.params.id
     req.body.category_id = id
-    req.body.stock_Id = stock_Id
+    // req.body.stock_Id = stock_Id
     var data = await product.create(req.body)
     var name = data._id
     req.body.product_id = name
@@ -30,7 +30,7 @@ exports.addproduct = async (req,res)=>{
     
 
 
-    var stock1 = await p_stock.findByIdAndUpdate(stock_Id,req.body)
+    // var stock1 = await p_stock.findByIdAndUpdate(stock_Id,req.body)
     res.status(200).json({
         status:"add",
         data,

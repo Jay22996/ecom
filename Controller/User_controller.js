@@ -193,7 +193,7 @@ exports.showreseller = async (req, res) => {
 
 exports.forget_pass = async (req, res) => {
 
-  var password =await bcrypt.hash(req.body.password, 10);
+  var password = await bcrypt.hash(req.body.password, 10);
   req.body.password = password
   var id = req.params.id
   var data = await userModel.findByIdAndUpdate(id,req.body);

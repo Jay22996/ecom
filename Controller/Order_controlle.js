@@ -111,6 +111,8 @@ exports.place_order = async (req, res) => {
   var produ = await product.findByIdAndUpdate({ _id: product_id },
     { $inc: { selling: 1 } })
   var data = await orderitel.create(req.body);
+  var quantity = data.quantity
+  var produ1 = await product.findByIdAndUpdate({ _id: product_id },{ $inc: { stock_Id: quantity } })
 
   var orderitelid = data._id;
   var data1 = await order.findByIdAndUpdate(
