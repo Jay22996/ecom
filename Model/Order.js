@@ -10,7 +10,8 @@ var Order_schema = new mongoose.Schema({
     branch_id: {type: mongoose.Schema.Types.ObjectId,ref:'branch_detail'},
     ordermode:{type:String},
     orderitems:[{
-        orderitem_id:{type: mongoose.Schema.Types.ObjectId,ref:'orderitem_detail'}
+        orderitem_id:{type: mongoose.Schema.Types.ObjectId,ref:'orderitem_detail'},
+        product_id:{type: mongoose.Schema.Types.ObjectId,ref:'Product_detail'}
     }],
     lat:{type:String},
     log:{type:String},

@@ -115,7 +115,7 @@ exports.place_order = async (req, res) => {
   var orderitelid = data._id;
   var data1 = await order.findByIdAndUpdate(
     { _id: id },
-    { $push: { orderitems: { orderitem_id: orderitelid } } }
+    { $push: { orderitems: { orderitem_id: orderitelid , product_id:product_id} } }
   );
   res.status(200).json({
     status: "add to itemlist",
