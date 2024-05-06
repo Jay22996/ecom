@@ -33,8 +33,7 @@ exports.addproduct = async (req,res)=>{
     // var stock1 = await p_stock.findByIdAndUpdate(stock_Id,req.body)
     res.status(200).json({
         status:"add",
-        data,
-        stock1
+        data
     })
 }
 
