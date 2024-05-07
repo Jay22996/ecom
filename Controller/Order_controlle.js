@@ -215,7 +215,7 @@ exports.going_order = async (req, res) => {
 };
 
 exports.show_all = async (req, res) => {
-    var data = await order.find({ordermode:"offline"});
+    var data = await order.find({ordermode:"shop"});
     var data1 = await order.find({ordermode:"online"});
 
   
