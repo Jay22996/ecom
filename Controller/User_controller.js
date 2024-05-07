@@ -156,6 +156,7 @@ exports.reqdelete = async (req, res) => {
   res.status(200).json({
     status: "delete",
     data1,
+    data
   });
 };
 

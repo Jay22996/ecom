@@ -3,7 +3,7 @@ var cart = require("../Model/Cart");
 var orderitel = require("../Model/Order_tiemlist");
 var product = require("../Model/ProductModel");
 var rev = require("../Model/Branch_revenew");
-
+const http = require('http');
 
 
 exports.add_to_cart = async (req, res) => {
@@ -252,15 +252,50 @@ exports.past_order = async (req, res) => {
   });
 };
 
+
 exports.past = async (req, res) => {
-  // var data = await order.updateMany({
-  //   selling:101
-  // });
-  // const today = new Date();
-  // const month = today.toLocaleString('default', { month: 'long' });
-  // console.log(month);
-  // res.status(200).json({
-  //   status: "show",
-  //   data: data,
-  // });
+  try {
+    const notificationData = req.body;
+
+    // Construct request options
+    const options = {
+      hostname: 'fcm.googleapis.com',
+      path: '/fcm/send',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAA4JQByZ4:APA91bE9aWrGndzuRQhodxMAqjZvJ8s8S41QYvGqC89gGdiRstzzwFL6qjPcqUVn_OsUtDgnTJc9h4_D2ZPF0RQshr-Uo4oN24xlfiqScU_7yzaqxm2L5Qn2iT2gicj8f2sCtaZxYLkC',
+      },
+    };
+
+    // Create the HTTP request
+    const fcmRequest = http.request(options, (response) => {
+      // Initialize a variable to store the response data
+      let responseData = '';
+
+      // Handle incoming data chunks
+      response.on('data', (chunk) => {
+        responseData += chunk;
+      });
+
+      // When the response ends, send it back to the client
+      response.on('end', () => {
+        res.status(response.statusCode).send(responseData);
+      });
+    });
+
+    // Handle errors
+    fcmRequest.on('error', (error) => {
+      console.error('Error sending FCM request:', error);
+      res.status(500).send('Error sending FCM request');
+    });
+
+    // Write the notification data to the request body and end the request
+    fcmRequest.write(JSON.stringify(notificationData));
+    fcmRequest.end();
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).send('Internal server error');
+  }
 };
+
