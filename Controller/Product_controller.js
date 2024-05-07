@@ -39,7 +39,7 @@ exports.addproduct = async (req,res)=>{
 
 exports.showallproduct = async (req,res)=>{
 
-    var data = await product.find().populate("category_id").populate("stock_Id")
+    var data = await product.find().populate("category_id").populate("brand_id")
 
     res.status(200).json({
         status:"find",
