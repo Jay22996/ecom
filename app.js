@@ -21,7 +21,7 @@ var paymentRouter = require('./routes/Payment');
 
 
 const corsOptions = {
-  origin:"https://pc-master-admin-web-ce7r.vercel.app/",
+  origin:"https://pc-master-admin-web-ce7r.vercel.app",
   methods:"GET , POST",
   credentials: true,
 }
