@@ -3,8 +3,7 @@ var cart = require("../Model/Cart");
 var orderitel = require("../Model/Order_tiemlist");
 var product = require("../Model/ProductModel");
 var rev = require("../Model/Branch_revenew");
-const http = require('http');
-
+const http = require("http");
 
 exports.add_to_cart = async (req, res) => {
   var id = req.params.id;
@@ -85,7 +84,6 @@ exports.order_generate = async (req, res) => {
 };
 
 exports.show_date = async (req, res) => {
-
   var data = await order.find();
 
   const today = new Date();
@@ -93,31 +91,40 @@ exports.show_date = async (req, res) => {
     const orderDate = data.order_date;
     return (
       orderDate.getFullYear() === today.getFullYear() &&
-      orderDate.getMonth()+ 1 === today.getMonth()+ 1 &&
+      orderDate.getMonth() + 1 === today.getMonth() + 1 &&
       orderDate.getDate() === today.getDate()
     );
   });
 
   res.status(200).json({
-      status: "add done",
-      data:todayOrders
+    status: "add done",
+    data: todayOrders,
   });
 };
 
 exports.place_order = async (req, res) => {
   var id = req.params.id;
   req.body.order_id = id;
-  var product_id = req.body.product_id
-  var produ = await product.findByIdAndUpdate({ _id: product_id },
-    { $inc: { selling: 1 } })
+  var product_id = req.body.product_id;
+  var produ = await product.findByIdAndUpdate(
+    { _id: product_id },
+    { $inc: { selling: 1 } }
+  );
   var data = await orderitel.create(req.body);
-  var quantity = data.quantity
-  var produ1 = await product.findByIdAndUpdate({ _id: product_id },{ $inc: { stock_Id: quantity } })
+  var quantity = data.quantity;
+  var produ1 = await product.findByIdAndUpdate(
+    { _id: product_id },
+    { $inc: { stock_Id: quantity } }
+  );
 
   var orderitelid = data._id;
   var data1 = await order.findByIdAndUpdate(
     { _id: id },
-    { $push: { orderitems: { orderitem_id: orderitelid , product_id:product_id} } }
+    {
+      $push: {
+        orderitems: { orderitem_id: orderitelid, product_id: product_id },
+      },
+    }
   );
   res.status(200).json({
     status: "add to itemlist",
@@ -128,41 +135,42 @@ exports.place_order = async (req, res) => {
 
 exports.order_update = async (req, res) => {
   // try {
-    var id = req.params.id;
-    var data = await order.findByIdAndUpdate(id, req.body);
+  var id = req.params.id;
+  var data = await order.findByIdAndUpdate(id, req.body);
 
-    if (req.body.status === "past order") {
-      const today = new Date();
-      const month = today.toLocaleString('default', { month: 'long' });
+  if (req.body.status === "past order") {
+    const today = new Date();
+    const month = today.toLocaleString("default", { month: "long" });
 
-      var updatedData = await rev.findOneAndUpdate(
-        { branch_id: data.branch_id },
-        {
-          $inc: {
-            "revenew.$[elem].m_rev": data.total_amount
-          }
+    var updatedData = await rev.findOneAndUpdate(
+      { branch_id: data.branch_id },
+      {
+        $inc: {
+          "revenew.$[elem].m_rev": data.total_amount,
         },
-        {
-          arrayFilters: [{ "elem.month": month }],
-          new: true
-        }
-      );
+      },
+      {
+        arrayFilters: [{ "elem.month": month }],
+        new: true,
+      }
+    );
 
-      // Assuming you want to retrieve the updated document
-      // console.log("Updated Data:", updatedData);
-    }
+    // Assuming you want to retrieve the updated document
+    // console.log("Updated Data:", updatedData);
+  }
 
-    res.status(200).json({
-      status: "update done",
-      data: data,updatedData
-    });
+  res.status(200).json({
+    status: "update done",
+    data: data,
+    updatedData,
+  });
   // } catch (error) {
   //   res.status(500).json({ error: error });
   // }
 };
 
 exports.rev_show = async (req, res) => {
-  var data = await rev.find().populate("branch_id")
+  var data = await rev.find().populate("branch_id");
 
   res.status(200).json({
     status: "show",
@@ -173,7 +181,7 @@ exports.rev_show = async (req, res) => {
 exports.order_show = async (req, res) => {
   var id = req.params.id;
   var data = await order
-    .find({user_id:id})
+    .find({ user_id: id })
     .populate("user_id")
     .populate("orderitems.orderitem_id")
     .populate("orderitems.product_id");
@@ -215,15 +223,15 @@ exports.going_order = async (req, res) => {
 };
 
 exports.show_all = async (req, res) => {
-    var data = await order.find({ordermode:"shop"});
-    var data1 = await order.find({ordermode:"online"});
+  var data = await order.find({ ordermode: "shop" });
+  var data1 = await order.find({ ordermode: "online" });
 
-  
-    res.status(200).json({
-      status: "show",
-      data: data,data1
-    });
-  };
+  res.status(200).json({
+    status: "show",
+    data: data,
+    data1,
+  });
+};
 
 exports.shipping_order = async (req, res) => {
   var data = await order.find({ status: "shipping" }).populate("user_id");
@@ -239,7 +247,7 @@ exports.past_order = async (req, res) => {
 
   function calculateTotalAmount(data) {
     let total = 0;
-    data.forEach(data => {
+    data.forEach((data) => {
       total += data.total_amount;
     });
     return total;
@@ -248,16 +256,15 @@ exports.past_order = async (req, res) => {
 
   res.status(200).json({
     status: "show",
-    data: data,totalAmount
+    data: data,
+    totalAmount,
   });
 };
-
 
 exports.past = async (req, res) => {
-  var data = await product.updateMany({brand_id:"663893ad57060c812d72273f"})
+  var data = await product.updateMany({ brand_id: "663893ad57060c812d72273f" });
   res.status(200).json({
     status: "show",
-    data: data
+    data: data,
   });
 };
-

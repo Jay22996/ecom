@@ -43,22 +43,19 @@ exports.findyou = async (req, res) => {
   });
 };
 exports.coupne_status = async (req, res) => {
-    var use = "Used";
-    req.body.userOrnot = use;
-    var coupne_code = req.body.coupne_code;
-    var data1 = await coupne.findOneAndUpdate(
-      { coupne_code: coupne_code },
-      req.body
-    );
+  var use = "Used";
+  req.body.userOrnot = use;
+  var coupne_code = req.body.coupne_code;
+  var data1 = await coupne.findOneAndUpdate(
+    { coupne_code: coupne_code },
+    req.body
+  );
 
-    res.status(200).json({
-        status: "use",
-        data1
-
-      });
-}
-
-
+  res.status(200).json({
+    status: "use",
+    data1,
+  });
+};
 
 exports.coupneuse = async (req, res) => {
   var coupne_code = req.body.coupne_code;
@@ -69,7 +66,7 @@ exports.coupneuse = async (req, res) => {
     if (data1.userOrnot == "not_use") {
       res.status(200).json({
         status: "not use",
-        data1
+        data1,
       });
     } else {
       res.status(200).json({

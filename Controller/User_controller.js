@@ -6,7 +6,6 @@ var nodemailer = require("nodemailer");
 var like = require("../Model/LikeList");
 var ureq = require("../Model/Resellerrrrq");
 
-
 var otp = "";
 var email = "";
 var password = "";
@@ -150,30 +149,30 @@ exports.showree = async (req, res) => {
 };
 
 exports.reqdelete = async (req, res) => {
-  var id = req.params.id
-  var data = await ureq.findByIdAndDelete(id).populate("user_id")
+  var id = req.params.id;
+  var data = await ureq.findByIdAndDelete(id).populate("user_id");
   var data1 = await ureq.find().populate("user_id");
   res.status(200).json({
     status: "delete",
     data1,
-    data
+    data,
   });
 };
 
 exports.updateuserresaller = async (req, res) => {
   var id = req.params.id;
   var data1 = await ureq.findById(id);
-  var u_id = data1.user_id
-  var gst_no = data1.gst_no
-  var address = data1.address
-  var pin_code = data1.pin_code
-  var city = data1.city
+  var u_id = data1.user_id;
+  var gst_no = data1.gst_no;
+  var address = data1.address;
+  var pin_code = data1.pin_code;
+  var city = data1.city;
 
   req.body.role = "reseller";
-  req.body.gst_no = gst_no
-  req.body.address = address
-  req.body.pin_code = pin_code
-  req.body.city = city
+  req.body.gst_no = gst_no;
+  req.body.address = address;
+  req.body.pin_code = pin_code;
+  req.body.city = city;
 
   var data = await userModel.findByIdAndUpdate(u_id, req.body);
   await ureq.findByIdAndDelete(id);
@@ -185,7 +184,7 @@ exports.updateuserresaller = async (req, res) => {
 };
 
 exports.showreseller = async (req, res) => {
-  var data = await userModel.find({role:"reseller"});
+  var data = await userModel.find({ role: "reseller" });
   res.status(200).json({
     status: "done",
     data,
@@ -193,27 +192,26 @@ exports.showreseller = async (req, res) => {
 };
 
 exports.forget_pass = async (req, res) => {
-
   var password = await bcrypt.hash(req.body.password, 10);
-  req.body.password = password
-  var id = req.params.id
-  var data = await userModel.findByIdAndUpdate(id,req.body);
+  req.body.password = password;
+  var id = req.params.id;
+  var data = await userModel.findByIdAndUpdate(id, req.body);
 
- res.status(200).json({
-      status: "done",
-      data
-    });
-
-}
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
 
 exports.find_data = async (req, res) => {
-
-  var data = await userModel.find({email:req.body.email});
-  var id = data[0]._id
+  var data = await userModel.find({ email: req.body.email });
+  var id = data[0]._id;
 
   if (data.length == 1) {
     otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets: false
+      upperCaseAlphabets: false,
+      specialChars: false,
+      lowerCaseAlphabets: false,
     });
     email = req.body.email;
     try {
@@ -236,7 +234,8 @@ exports.find_data = async (req, res) => {
 
       res.status(200).json({
         status: `done`,
-        otp: otp,id
+        otp: otp,
+        id,
       });
     } catch (error) {
       console.error("Error sending email:", error);
@@ -252,5 +251,4 @@ exports.find_data = async (req, res) => {
       status: `user not found`,
     });
   }
-
-}
+};
