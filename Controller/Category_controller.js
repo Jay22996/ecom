@@ -68,9 +68,9 @@ exports.deletebrand = async (req,res)=>{
 
 exports.updatebrand = async (req,res)=>{
     var id = req.params.id
-    var data = await brand.findByIdAndDelete(id,req.body)
+    var data = await brand.findByIdAndUpdate(id,req.body)
     res.status(200).json({
-        status:"delete",
+        status:"update",
         data
     })
 }

@@ -9,8 +9,8 @@ router.get('/categorydelete/:id',deleteCategory)
 router.post('/categoryupdate/:id',updateCategory)
 router.post('/brand',addbrand)
 router.get('/showbrand',showbrand)
-router.get('/detelebrand',deletebrand)
-router.post('/updatebrand',updatebrand)
+router.get('/detelebrand/:id',deletebrand)
+router.post('/updatebrand/:id',updatebrand)
 
 
 
