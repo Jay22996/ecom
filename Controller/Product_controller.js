@@ -74,19 +74,19 @@ exports.deleteproduct = async (req,res)=>{
 exports.updateproduct = async (req,res)=>{
     var id = req.params.id
     var data = await product.findByIdAndUpdate(id,req.body)
-
+    console.log(req.body.product_name);
     res.status(200).json({
         status:"update",
         data
     })
 }
 
-exports.updateproduct = async (req,res)=>{
-    var id = req.params.id
-    var data = await product.findByIdAndUpdate({_id:id},{name:"jay"})
+// exports.updateproduct = async (req,res)=>{
+//     var id = req.params.id
+//     var data = await product.findByIdAndUpdate({_id:id},{name:"jay"})
 
-    res.status(200).json({
-        status:"update",
-        data
-    })
-}
+//     res.status(200).json({
+//         status:"update",
+//         data
+//     })
+// }
