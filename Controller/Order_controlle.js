@@ -91,7 +91,7 @@ exports.order_generate = async (req, res) => {
 };
 
 exports.show_date = async (req, res) => {
-  // var data = await order.find();
+  var data = await order.find();
 
   // const today = new Date();
   // const todayOrders = data.filter((data) => {
