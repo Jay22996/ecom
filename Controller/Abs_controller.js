@@ -1,10 +1,12 @@
 var abs = require("../Model/Ads_details");
 
 exports.addabs = async (req, res) => {
-  var data = await abs.create(req.body);
+  var data1 = await abs.create(req.body);
+  var data = await abs.find();
+
   res.status(200).json({
     status: "done",
-    data,
+    data1,
   });
 };
 
