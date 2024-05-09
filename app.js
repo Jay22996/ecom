@@ -24,6 +24,7 @@ const corsOptions = {
 
   methods: "GET , POST",
   credentials: true,
+  
 };
 
 var app = express();
