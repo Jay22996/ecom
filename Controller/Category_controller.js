@@ -39,7 +39,7 @@ exports.updateCategory = async (req, res) => {
 
 exports.addbrand = async (req, res) => {
   var data1 = await brand.create(req.body);
-  var data = await Category.find();
+  var data = await brand.find();
 
   res.status(200).json({
     status: "add",
