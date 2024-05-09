@@ -136,17 +136,19 @@ exports.place_order = async (req, res) => {
 exports.order_update = async (req, res) => {
   // try {
   var id = req.params.id;
-  var data = await order.findByIdAndUpdate(id, req.body);
+  var data1 = await order.findByIdAndUpdate(id, req.body);
+  var data = await order.findById(id);
+
 
   if (req.body.status === "past order") {
     const today = new Date();
     const month = today.toLocaleString("default", { month: "long" });
 
     var updatedData = await rev.findOneAndUpdate(
-      { branch_id: data.branch_id },
+      { branch_id: data1.branch_id },
       {
         $inc: {
-          "revenew.$[elem].m_rev": data.total_amount,
+          "revenew.$[elem].m_rev": data1.total_amount,
         },
       },
       {
