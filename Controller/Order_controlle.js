@@ -3,7 +3,10 @@ var cart = require("../Model/Cart");
 var orderitel = require("../Model/Order_tiemlist");
 var product = require("../Model/ProductModel");
 var rev = require("../Model/Branch_revenew");
-const http = require("http");
+var coupne = require("../Model/Coupne_details");
+
+// const http = require("http");
+
 
 exports.add_to_cart = async (req, res) => {
   var id = req.params.id;
@@ -76,6 +79,10 @@ exports.update_to_cart = async (req, res) => {
 
 exports.order_generate = async (req, res) => {
   var data = await order.create(req.body);
+  var id = data.coupon_id
+  if(id !== ""){
+    var data1 = await coupne.findOneAndUpdate({coupne_code:id},{userOrnot:"use"})
+  }
 
   res.status(200).json({
     status: "add done",
