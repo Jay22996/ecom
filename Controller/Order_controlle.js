@@ -91,16 +91,28 @@ exports.order_generate = async (req, res) => {
 };
 
 exports.show_date = async (req, res) => {
-  var data = await order.find();
+  // var data = await order.find();
 
-  const today = new Date();
+  // const today = new Date();
+  // const todayOrders = data.filter((data) => {
+  //   const orderDate = data.order_date;
+  //   return (
+  //     orderDate.getFullYear() === today.getFullYear() &&
+  //     orderDate.getMonth() + 1 === today.getMonth() + 1 &&
+  //     orderDate.getDate() === today.getDate()
+  //   );
+  // });
   const todayOrders = data.filter((data) => {
     const orderDate = data.order_date;
-    return (
-      orderDate.getFullYear() === today.getFullYear() &&
-      orderDate.getMonth() + 1 === today.getMonth() + 1 &&
-      orderDate.getDate() === today.getDate()
-    );
+    // Check if orderDate is defined before accessing its properties
+    if (orderDate) {
+      return (
+        orderDate.getFullYear() === today.getFullYear() &&
+        orderDate.getMonth() + 1 === today.getMonth() + 1 &&
+        orderDate.getDate() === today.getDate()
+      );
+    }
+    return false; // Or handle this case according to your logic
   });
 
   res.status(200).json({
