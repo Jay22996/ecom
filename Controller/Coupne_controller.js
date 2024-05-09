@@ -14,7 +14,7 @@ exports.addcoupne = async (req, res) => {
   var data1 = await coupne.find();
     res.status(200).json({
       status: "add",
-      data,
+      data,data1
     });
   }
 };
