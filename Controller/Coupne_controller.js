@@ -2,6 +2,7 @@ var coupne = require("../Model/Coupne_details");
 
 exports.addcoupne = async (req, res) => {
   var find = await coupne.find({ coupne_code: req.body.coupne_code });
+
   if (find.length == 1) {
     res.status(200).json({
       status: "Coupen code is Already exist",
@@ -10,6 +11,7 @@ exports.addcoupne = async (req, res) => {
     var id = req.params.id;
     req.body.user_id = id;
     var data = await coupne.create(req.body);
+  var data1 = await coupne.find();
     res.status(200).json({
       status: "add",
       data,
@@ -18,10 +20,10 @@ exports.addcoupne = async (req, res) => {
 };
 
 exports.showc = async (req, res) => {
-  var data = await coupne.find();
+  var data1 = await coupne.find();
   res.status(200).json({
     status: "find",
-    data,
+    data1,
   });
 };
 
