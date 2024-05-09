@@ -2,7 +2,8 @@ var Category = require("../Model/CategoryModel");
 var brand = require("../Model/Brand");
 
 exports.addCategory = async (req, res) => {
-  var data = await Category.create(req.body);
+  var data1 = await Category.create(req.body);
+  var data = await Category.find();
   res.status(200).json({
     status: "add",
     data,
