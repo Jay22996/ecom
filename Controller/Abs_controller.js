@@ -6,7 +6,7 @@ exports.addabs = async (req, res) => {
 
   res.status(200).json({
     status: "done",
-    data1,
+    data,
   });
 };
 
