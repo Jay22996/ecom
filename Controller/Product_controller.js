@@ -74,7 +74,7 @@ exports.deleteproduct = async (req, res) => {
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
   var data1 = await product.findByIdAndUpdate(id, req.body);
-  var data = await product.find();
+  var data = await product.find().populate("category_id").populate("brand_id");;
   console.log(req.body.product_name);
   res.status(200).json({
     status: "update",
