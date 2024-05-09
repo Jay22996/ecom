@@ -38,7 +38,9 @@ exports.updateCategory = async (req, res) => {
 };
 
 exports.addbrand = async (req, res) => {
-  var data = await brand.create(req.body);
+  var data1 = await brand.create(req.body);
+  var data = await Category.find();
+
   res.status(200).json({
     status: "add",
     data,
@@ -64,7 +66,9 @@ exports.deletebrand = async (req, res) => {
 
 exports.updatebrand = async (req, res) => {
   var id = req.params.id;
-  var data = await brand.findByIdAndUpdate(id, req.body);
+  var data1 = await brand.findByIdAndUpdate(id, req.body);
+  var data = await brand.find();
+
   res.status(200).json({
     status: "update",
     data,
