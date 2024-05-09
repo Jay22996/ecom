@@ -28,7 +28,8 @@ exports.deleteCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
   var id = req.params.id;
-  var data = await Category.findByIdAndUpdate(id, req.body);
+  var data1 = await Category.findByIdAndUpdate(id, req.body);
+  var data = await Category.find();
   res.status(200).json({
     status: "update",
     data,
