@@ -256,7 +256,7 @@ exports.find_data = async (req, res) => {
 };
 
 exports.bill_details = async (req, res) => {
-  var id = ""
+  var id = "663daa66f230883b8b6667e7"
   var data = await bill.findById(id);
 
   res.status(200).json({
@@ -266,7 +266,7 @@ exports.bill_details = async (req, res) => {
 };
 
 exports.bill_update = async (req, res) => {
-  var id = ""
+  var id = "663daa66f230883b8b6667e7"
   var data = await bill.findByIdAndUpdate(id,req.body);
 
   res.status(200).json({
