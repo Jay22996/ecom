@@ -20,7 +20,8 @@ var product_schema = new mongoose.Schema({
   rating_id: { type: mongoose.Schema.Types.ObjectId, ref: "Review" },
   brand_id: { type: mongoose.Schema.Types.ObjectId, ref: "brand_name" },
   SKU: { type: String },
-  HSN:{ type: String }
+  HSN:{ type: String },
+  show:{type: String,default:"yes"}
 });
 
 module.exports = mongoose.model("Product_detail", product_schema);
