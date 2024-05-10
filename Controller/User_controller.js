@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 var nodemailer = require("nodemailer");
 var like = require("../Model/LikeList");
 var ureq = require("../Model/Resellerrrrq");
+var bill = require("../Model/Bill_details");
+
 
 var otp = "";
 var email = "";
@@ -251,4 +253,24 @@ exports.find_data = async (req, res) => {
       status: `user not found`,
     });
   }
+};
+
+exports.bill_details = async (req, res) => {
+  var id = ""
+  var data = await bill.findById(id);
+
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
+exports.bill_update = async (req, res) => {
+  var id = ""
+  var data = await bill.findByIdAndUpdate(id,req.body);
+
+  res.status(200).json({
+    status: "done",
+    data,
+  });
 };
