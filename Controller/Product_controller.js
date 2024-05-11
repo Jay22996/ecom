@@ -12,15 +12,15 @@ exports.addproduct = async (req, res) => {
   req.body.category_id = id;
   // req.body.stock_Id = stock_Id
   var data = await product.create(req.body);
-  var name = data._id;
-  req.body.product_id = name;
+  // var name = data._id;
+  // req.body.product_id = name;
   // req.body.rating_id = name
-  var ratingg = await rating.create(req.body);
-  var rid = ratingg._id;
-  var data2 = await product.findByIdAndUpdate(
-    { _id: name },
-    { rating_id: rid }
-  );
+  // var ratingg = await rating.create(req.body);
+  // var rid = ratingg._id;
+  // var data2 = await product.findByIdAndUpdate(
+  //   { _id: name },
+  //   { rating_id: rid }
+  // );
 
   var data3 = await cat.findByIdAndUpdate(req.body.category_id, {
     $inc: { products: 1 },
