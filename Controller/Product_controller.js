@@ -78,19 +78,25 @@ exports.updateproduct = async (req, res) => {
   var b_id = data2.brand_id
   var c_id = data2.category_id
 
-  var data3 = await brand.findByIdAndUpdate(b_id, {
-    $inc: { products: -1 },
-  });
+  if(req.body.brand_id !==""){
+    var data3 = await brand.findByIdAndUpdate(b_id, {
+      $inc: { products: -1 },
+    });
+    
+    var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
+      $inc: { products: 1 },
+    });
+  }
+if(req.body.category_id !==""){
+
   var data4 = await cat.findByIdAndUpdate(c_id, {
     $inc: { products: -1 },
   });
 
-  var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
-    $inc: { products: 1 },
-  });
   var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
     $inc: { products: 1 },
   });
+}
 
   var data = await product.find().populate("category_id").populate("brand_id");
   
