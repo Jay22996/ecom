@@ -82,7 +82,7 @@ exports.updateproduct = async (req, res) => {
 
   if(req.body.brand_id !== undefined){
     var data3 = await brand.findByIdAndUpdate(b_id, {
-      $inc: { products: -1 },
+      $dec: { products: 1 },
     });
     
     var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
@@ -92,7 +92,7 @@ exports.updateproduct = async (req, res) => {
 if(req.body.category_id !== undefined){
 
   var data4 = await cat.findByIdAndUpdate(c_id, {
-    $inc: { products: -1 },
+    $dec: { products: 1 },
   });
 
   var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
