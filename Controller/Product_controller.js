@@ -74,8 +74,26 @@ exports.deleteproduct = async (req, res) => {
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
   var data1 = await product.findByIdAndUpdate(id, req.body);
+  var data2 = await product.findById(id);
+  var b_id = data2.brand_id
+  var c_id = data2.category_id
+
+  var data3 = await brand.findByIdAndUpdate(b_id, {
+    $inc: { products: -1 },
+  });
+  var data4 = await cat.findByIdAndUpdate(c_id, {
+    $inc: { products: -1 },
+  });
+
+  var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
+    $inc: { products: 1 },
+  });
+  var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
+    $inc: { products: 1 },
+  });
+
   var data = await product.find().populate("category_id").populate("brand_id");
-  console.log(req.body.product_name);
+  
   res.status(200).json({
     status: "update",
     data,
