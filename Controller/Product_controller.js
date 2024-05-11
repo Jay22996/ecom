@@ -73,14 +73,11 @@ exports.deleteproduct = async (req, res) => {
 
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
-  var data1 = await product.findByIdAndUpdate(id, req.body);
   var data2 = await product.findById(id);
   var b_id = data2
   var c_id = data2
-  console.log(req.body.brand_id);
-  console.log(req.body.category_id);
-  console.log("dd",b_id.brand_id);
-  console.log("dd",c_id.category_id);
+  var data1 = await product.findByIdAndUpdate(id, req.body);
+ 
 
   if(req.body.brand_id !== undefined){
     var data3 = await brand.findByIdAndUpdate(b_id, {
