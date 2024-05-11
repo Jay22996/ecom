@@ -10,17 +10,18 @@ exports.addproduct = async (req, res) => {
 
   var id = req.params.id;
   req.body.category_id = id;
-  // req.body.stock_Id = stock_Id
+  req.body.stock_Id = stock_Id
   var data = await product.create(req.body);
-  // var name = data._id;
-  // req.body.product_id = name;
-  // req.body.rating_id = name
-  // var ratingg = await rating.create(req.body);
-  // var rid = ratingg._id;
-  // var data2 = await product.findByIdAndUpdate(
-  //   { _id: name },
-  //   { rating_id: rid }
-  // );
+  var name = data._id;
+  req.body.product_id = name;
+
+
+  var ratingg = await rating.create(req.body);
+  var rid = ratingg._id;
+  var data2 = await product.findByIdAndUpdate(
+    { _id: name },
+    { rating_id: rid }
+  );
 
   var data3 = await cat.findByIdAndUpdate(req.body.category_id, {
     $inc: { products: 1 },
@@ -74,31 +75,34 @@ exports.deleteproduct = async (req, res) => {
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
   var data2 = await product.findById(id);
-  var b_id = data2
-  var c_id = data2
-  var data1 = await product.findByIdAndUpdate(id, req.body);
- 
-
+  var b_id = data2.brand_id
+  var c_id = data2.category_id
+  console.log(b_id);
+  console.log(c_id);
+  console.log(req.body.brand_id);
+  console.log(req.body.category_id);
+  
   if(req.body.brand_id !== undefined){
     var data3 = await brand.findByIdAndUpdate(b_id, {
-      $dec: { products: 1 },
+      $inc: { products: -1 }, // Decrement products count by 1
     });
     
     var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
-      $inc: { products: 1 },
+      $inc: { products: 1 }, // Increment products count by 1
     });
   }
-if(req.body.category_id !== undefined){
-
-  var data4 = await cat.findByIdAndUpdate(c_id, {
-    $dec: { products: 1 },
-  });
-
-  var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
-    $inc: { products: 1 },
-  });
-}
-
+  if(req.body.category_id !== undefined){
+    
+    var data4 = await cat.findByIdAndUpdate(c_id, {
+      $inc: { products: -1 }, // Decrement products count by 1
+    });
+    
+    var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
+      $inc: { products: 1 }, // Increment products count by 1
+    });
+  }
+  
+  var data1 = await product.findByIdAndUpdate(id, req.body);
   var data = await product.find().populate("category_id").populate("brand_id");
   
   res.status(200).json({
@@ -106,6 +110,7 @@ if(req.body.category_id !== undefined){
     data,
   });
 };
+
 
 exports.productstatus = async (req, res) => {
   var id = req.params.id;
