@@ -26,7 +26,7 @@ exports.addproduct = async (req, res) => {
     $inc: { products: 1 },
   });
 
-  var data4 = await brand.findByIdAndUpdate(req.body.brand_name, {
+  var data4 = await brand.findByIdAndUpdate(req.body.brand_id, {
     $inc: { products: 1 },
   });
 
