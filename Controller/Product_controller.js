@@ -77,6 +77,8 @@ exports.updateproduct = async (req, res) => {
   var data2 = await product.findById(id);
   var b_id = data2.brand_id
   var c_id = data2.category_id
+  console.log(req.body.brand_id);
+  console.log(req.body.category_id);
 
   if(req.body.brand_id !==""){
     var data3 = await brand.findByIdAndUpdate(b_id, {
