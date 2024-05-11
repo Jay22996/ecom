@@ -104,7 +104,7 @@ exports.show_yes = async (req, res) => {
 
   var data = await product.find({show:"yes"});
   res.status(200).json({
-    status: "update",
+    status: "find",
     data,
   });
 };
