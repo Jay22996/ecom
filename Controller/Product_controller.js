@@ -79,8 +79,8 @@ exports.updateproduct = async (req, res) => {
   var c_id = data2
   console.log(req.body.brand_id);
   console.log(req.body.category_id);
-  console.log("dd",b_id);
-  console.log("dd",c_id);
+  console.log("dd",b_id.brand_id);
+  console.log("dd",c_id.category_id);
 
   if(req.body.brand_id !== undefined){
     var data3 = await brand.findByIdAndUpdate(b_id, {
