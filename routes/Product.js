@@ -6,6 +6,7 @@ const {
   deleteproduct,
   updateproduct,
   productstatus,
+  show_yes,
 } = require("../Controller/Product_controller");
 var router = express.Router();
 
@@ -15,6 +16,8 @@ router.get("/showproduct/:id", showproduct);
 router.get("/deleteproduct/:id", deleteproduct);
 router.post("/updateproduct/:id", updateproduct);
 router.get("/status/:id", productstatus);
+router.get("/showyes", show_yes);
+
 
 
 module.exports = router;

@@ -74,7 +74,7 @@ exports.deleteproduct = async (req, res) => {
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
   var data1 = await product.findByIdAndUpdate(id, req.body);
-  var data = await product.find().populate("category_id").populate("brand_id");;
+  var data = await product.find().populate("category_id").populate("brand_id");
   console.log(req.body.product_name);
   res.status(200).json({
     status: "update",
@@ -85,15 +85,24 @@ exports.updateproduct = async (req, res) => {
 exports.productstatus = async (req, res) => {
   var id = req.params.id;
   var data2 = await product.findById(id);
-  var data1 = data2.show
-  if(data1 === "yes"){
-    var status = "no" 
-  }else if(data1 === "no"){
-    status = "yes"
+  var data1 = data2.show;
+  if (data1 === "yes") {
+    var status = "no";
+  } else if (data1 === "no") {
+    status = "yes";
   }
-  var show = await product.findByIdAndUpdate(id,{show:status})
+  var show = await product.findByIdAndUpdate(id, { show: status });
   var data = await product.find().populate("category_id").populate("brand_id");
 
+  res.status(200).json({
+    status: "update",
+    data,
+  });
+};
+
+exports.show_yes = async (req, res) => {
+
+  var data = await product.find({show:"yes"});
   res.status(200).json({
     status: "update",
     data,
