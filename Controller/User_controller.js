@@ -20,6 +20,7 @@ exports.verify = async (req, res) => {
   } else {
     otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
+      lowerCaseAlphabets:false,
       specialChars: false,
     });
     email = req.body.email;
