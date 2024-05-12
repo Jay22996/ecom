@@ -10,7 +10,7 @@ exports.addproduct = async (req, res) => {
 
   var id = req.params.id;
   req.body.category_id = id;
-  req.body.stock_Id = stock_Id
+  // req.body.stock_Id = stock_Id
   var data = await product.create(req.body);
   var name = data._id;
   req.body.product_id = name;
