@@ -235,6 +235,24 @@ exports.pending_order = async (req, res) => {
   });
 };
 
+exports.cancel_order = async (req, res) => {
+  var data = await order.find({ status: "cancel" }).populate("user_id");
+
+  res.status(200).json({
+    status: "show",
+    data: data,
+  });
+};
+
+exports.regected_order = async (req, res) => {
+  var data = await order.find({ status: "regected" }).populate("user_id");
+
+  res.status(200).json({
+    status: "show",
+    data: data,
+  });
+};
+
 exports.going_order = async (req, res) => {
   var data = await order.find({ status: "on going" }).populate("user_id");
 

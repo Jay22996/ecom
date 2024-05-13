@@ -17,6 +17,8 @@ const {
   show_all,
   rev_show,
   order_showpc,
+  regected_order,
+  cancel_order,
 } = require("../Controller/Order_controlle");
 const {
   add_shipment,
@@ -38,6 +40,8 @@ router.get("/shipmentdelete/:id", Delete_shipment);
 router.get("/shipmentfind/:id", find_shipment);
 router.post("/updateorder/:id", order_update);
 router.get("/pending_order", pending_order);
+router.get("/cancel_order", cancel_order);
+router.get("/regected_order", regected_order);
 router.get("/going_order", going_order);
 router.get("/shipping_order", shipping_order);
 router.get("/past_order", past_order);
