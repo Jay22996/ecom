@@ -245,7 +245,7 @@ exports.cancel_order = async (req, res) => {
 };
 
 exports.regected_order = async (req, res) => {
-  var data = await order.find({ status: "regected" }).populate("user_id");
+  var data = await order.find({ status: "rejected" }).populate("user_id");
 
   res.status(200).json({
     status: "show",
