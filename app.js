@@ -19,8 +19,8 @@ var orderRouter = require("./routes/Order");
 var paymentRouter = require("./routes/Payment");
 
 const corsOptions = {
-  origin:"https://pc-master-admin-web-ce7r.vercel.app", 
-  // origin: "http://localhost:3000",
+  // origin:"https://pc-master-admin-web-ce7r.vercel.app", 
+  origin: "http://localhost:3000",
 
   methods: "GET , POST",
   credentials: true,
