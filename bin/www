@@ -19,7 +19,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    "mongodb+srv://pcuserecom:J0OwK9GvLcv8opb1@pcecom.t7nqbnu.mongodb.net/?retryWrites=true&w=majority&appName=PcEcom"
+    "mongodb+srv://pcuserecom:OBKeR9jVzF2KQIYC@cluster0.hhqtqyo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("Connected!"));
 /**
