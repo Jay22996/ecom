@@ -1,5 +1,9 @@
 var branch = require("../Model/Branch_detail");
 var rev = require("../Model/Branch_revenew");
+var admin = require("../Model/Branch_detail");
+const bcrypt = require("bcrypt");
+
+
 
 exports.s = async (req, res) => {
   var data = await rev.create(req.body);
@@ -10,6 +14,8 @@ exports.s = async (req, res) => {
 };
 
 exports.addbranch = async (req, res) => {
+  var  password = await bcrypt.hash(req.body.password, 10);
+  req.body.password = password;
   var data = await branch.create(req.body);
   var id = data._id;
   req.body.branch_id = id;
@@ -77,4 +83,28 @@ exports.showbranch = async (req, res) => {
     status: "show branch",
     data,
   });
+};
+
+exports.login = async (req, res) => {
+  var data = await admin.find({ email: req.body.email });
+  if (data.length == 1) {
+    const isPasswordMatch = await bcrypt.compare(
+      req.body.password,
+      data[0].password
+    );
+    if (isPasswordMatch) {
+      res.status(200).json({
+        status: "user is logged in",
+        data: data[0],
+      });
+    } else {
+      res.status(200).json({
+        status: "password does not match",
+      });
+    }
+  } else {
+    res.status(200).json({
+      status: "please register",
+    });
+  }
 };

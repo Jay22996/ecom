@@ -5,16 +5,15 @@ var cat = require("../Model/CategoryModel");
 var brand = require("../Model/Brand");
 
 exports.addproduct = async (req, res) => {
-  // var stock = await p_stock.create(req.body)
-  // var stock_Id = stock._id
+  var stock = await p_stock.create(req.body);
+  var stock_Id = stock._id;
 
   var id = req.params.id;
   req.body.category_id = id;
-  // req.body.stock_Id = stock_Id
+  req.body.stock_Id = stock_Id;
   var data = await product.create(req.body);
   var name = data._id;
   req.body.product_id = name;
-
 
   var ratingg = await rating.create(req.body);
   var rid = ratingg._id;
@@ -31,7 +30,19 @@ exports.addproduct = async (req, res) => {
     $inc: { products: 1 },
   });
 
-  // var stock1 = await p_stock.findByIdAndUpdate(stock_Id,req.body)
+  var stock1 = await p_stock.findByIdAndUpdate(stock_Id, req.body);
+  var b_id = "664862db8f66405b7efdd8cb";
+  var stock2 = await p_stock.findOneAndUpdate(
+    { product_id: name },
+    {
+      $push: {
+        quanitity: {
+          quanititys: req.body.quanititys,
+          branch_id: b_id,
+        },
+      },
+    }
+  );
   res.status(200).json({
     status: "add",
     data,
@@ -43,6 +54,43 @@ exports.showallproduct = async (req, res) => {
 
   res.status(200).json({
     status: "find",
+    data,
+  });
+};
+
+exports.product_quantity = async (req, res) => {
+  var id = req.params.id;
+  var data = await p_stock.findOne({
+    product_id: id,
+    quanitity: {
+      $elemMatch: {
+        branch_id: req.body.branch_id
+      },
+    },
+  });
+  if (data === null) {
+    var data2 = await p_stock.findOneAndUpdate({product_id: id}, {
+      $push: {
+        quanitity: {
+          quanititys: req.body.quanitity,
+          branch_id: req.body.branch_id,
+        },
+      },
+    });
+  } else {
+    var data3 = await p_stock.findOneAndUpdate(
+      { product_id: id, "quanitity.branch_id": req.body.branch_id },
+      {
+        $set: {
+          "quanitity.$.quanititys": req.body.quanitity,
+        },
+      },
+      { new: true }
+    );
+  }
+
+  res.status(200).json({
+    status: "update",
     data,
   });
 };
@@ -75,42 +123,40 @@ exports.deleteproduct = async (req, res) => {
 exports.updateproduct = async (req, res) => {
   var id = req.params.id;
   var data2 = await product.findById(id);
-  var b_id = data2.brand_id
-  var c_id = data2.category_id
+  var b_id = data2.brand_id;
+  var c_id = data2.category_id;
   console.log(b_id);
   console.log(c_id);
   console.log(req.body.brand_id);
   console.log(req.body.category_id);
-  
-  if(req.body.brand_id !== undefined){
+
+  if (req.body.brand_id !== undefined) {
     var data3 = await brand.findByIdAndUpdate(b_id, {
       $inc: { products: -1 }, // Decrement products count by 1
     });
-    
+
     var data5 = await brand.findByIdAndUpdate(req.body.brand_id, {
       $inc: { products: 1 }, // Increment products count by 1
     });
   }
-  if(req.body.category_id !== undefined){
-    
+  if (req.body.category_id !== undefined) {
     var data4 = await cat.findByIdAndUpdate(c_id, {
       $inc: { products: -1 }, // Decrement products count by 1
     });
-    
+
     var data6 = await cat.findByIdAndUpdate(req.body.category_id, {
       $inc: { products: 1 }, // Increment products count by 1
     });
   }
-  
+
   var data1 = await product.findByIdAndUpdate(id, req.body);
   var data = await product.find().populate("category_id").populate("brand_id");
-  
+
   res.status(200).json({
     status: "update",
     data,
   });
 };
-
 
 exports.productstatus = async (req, res) => {
   var id = req.params.id;
@@ -131,8 +177,10 @@ exports.productstatus = async (req, res) => {
 };
 
 exports.show_yes = async (req, res) => {
-
-  var data = await product.find({show:"yes"}).populate("category_id").populate("brand_id");
+  var data = await product
+    .find({ show: "yes" })
+    .populate("category_id")
+    .populate("brand_id");
   res.status(200).json({
     status: "find",
     data,

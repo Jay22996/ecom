@@ -13,6 +13,10 @@ var branch_schema = new mongoose.Schema({
   city: { type: String },
   state: { type: String },
   country: { type: String },
+  role:{ type: String },
+  order:{type: String,default:"show"},
+  ads:{type: String,default:"show"},
+  coupne:{type: String,default:"show"},
 });
 
 module.exports = mongoose.model("branch_detail", branch_schema);
