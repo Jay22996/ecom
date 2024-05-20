@@ -4,7 +4,7 @@ var cart_schema = new mongoose.Schema({
   brand_name: { type: String },
   photo: { type: String },
   products: { type: Number, default: 0 },
-  show: { type: String ,default:"yes"},
+  show: { type: String ,default:"show"},
 
 });
 

@@ -95,6 +95,24 @@ exports.product_quantity = async (req, res) => {
   });
 };
 
+exports.product_stock = async (req, res) => {
+  var id = req.params.id
+  var data = await p_stock.findOneAndUpdate(
+    { product_id: id, "quanitity.branch_id": req.body.branch_id },
+    {
+      $set: {
+        "quanitity.$.quanititys": req.body.quanitity,
+      },
+    },
+    { new: true }
+  );
+
+  res.status(200).json({
+    status: "update",
+    data,
+  });
+};
+
 exports.showproduct = async (req, res) => {
   var id = req.params.id;
   var data = await product
