@@ -4,7 +4,6 @@ var admin = require("../Model/Branch_detail");
 const bcrypt = require("bcrypt");
 
 
-
 exports.s = async (req, res) => {
   var data = await rev.create(req.body);
   res.status(200).json({
