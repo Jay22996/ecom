@@ -180,10 +180,10 @@ exports.productstatus = async (req, res) => {
   var id = req.params.id;
   var data2 = await product.findById(id);
   var data1 = data2.show;
-  if (data1 === "yes") {
-    var status = "no";
-  } else if (data1 === "no") {
-    status = "yes";
+  if (data1 === "show") {
+    var status = "hide";
+  } else if (data1 === "hide") {
+    status = "show";
   }
   var show = await product.findByIdAndUpdate(id, { show: status });
   var data = await product.find().populate("category_id").populate("brand_id");
