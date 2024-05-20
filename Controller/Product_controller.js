@@ -60,7 +60,7 @@ exports.showallproduct = async (req, res) => {
 
 exports.product_quantity = async (req, res) => {
   var id = req.params.id;
-  var data = await p_stock.findOne({
+  var data1 = await p_stock.findOne({
     product_id: id,
     quanitity: {
       $elemMatch: {
@@ -68,7 +68,7 @@ exports.product_quantity = async (req, res) => {
       },
     },
   });
-  if (data === null) {
+  if (data1 === null) {
     var data2 = await p_stock.findOneAndUpdate({product_id: id}, {
       $push: {
         quanitity: {
@@ -88,6 +88,7 @@ exports.product_quantity = async (req, res) => {
       { new: true }
     );
   }
+  var data = await stock.find().populate("product_id")
 
   res.status(200).json({
     status: "update",
