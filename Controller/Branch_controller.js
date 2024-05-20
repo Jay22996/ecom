@@ -69,6 +69,7 @@ exports.datelebranch = async (req, res) => {
 };
 
 exports.showallbranch = async (req, res) => {
+  
   var data = await branch.find();
   res.status(200).json({
     status: "show branch",
