@@ -10,10 +10,9 @@ exports.stock = async (req, res) => {
 
 exports.stockall = async (req, res) => {
   // var id = req.params.id;
-  var data = await stock.find().populate("product_id").populate({
-    path: "quanitity.branch_id", // Check this path
-    model: "branch_detail" // Check this model
-  })
+  var data = await stock.find()
+    console.log(data);
+
   res.status(200).json({
     status: "show stock",
     data,
@@ -31,6 +30,8 @@ exports.stockadd = async (req, res) => {
     data,
   });
 };
+
+
 
 // exports.stockupdate = async (req,res)=>{
 //     var quantitys = req.body.quantitys
