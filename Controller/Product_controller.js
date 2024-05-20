@@ -1,5 +1,7 @@
 var product = require("../Model/ProductModel");
 var p_stock = require("../Model/Product_stock");
+var stock = require("../Model/Product_stock");
+
 var rating = require("../Model/Review_detail");
 var cat = require("../Model/CategoryModel");
 var brand = require("../Model/Brand");
