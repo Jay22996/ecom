@@ -31,7 +31,7 @@ exports.addproduct = async (req, res) => {
   });
 
   var stock1 = await p_stock.findByIdAndUpdate(stock_Id, req.body);
-  var b_id = "664862db8f66405b7efdd8cb";
+  var b_id = "664aca474de093734eb7e209";
   var stock2 = await p_stock.findOneAndUpdate(
     { product_id: name },
     {
