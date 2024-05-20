@@ -97,10 +97,10 @@ exports.brandstatus = async (req, res) => {
   var id = req.params.id;
   var data2 = await brand.findById(id);
   var data1 = data2.show;
-  if (data1 === "yes") {
-    var status = "no";
-  } else if (data1 === "no") {
-    status = "yes";
+  if (data1 === "show") {
+    var status = "hide";
+  } else if (data1 === "hide") {
+    status = "show";
   }
   var show = await brand.findByIdAndUpdate(id, { show: status });
   var data = await brand.find()
