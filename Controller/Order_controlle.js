@@ -201,6 +201,24 @@ exports.order_update = async (req, res) => {
           }
         );
       }
+    } else if (req.body.status === "cancele order") {
+      for (let i = 0; i < orderitemss.length; i++) {
+        var item = orderitemss[i].orderitem_id;
+
+        var isdata = await orderitel.findById(item);
+        var quantity = isdata.quantity;
+        var productid = isdata.product_id;
+        var barnch = isdata.barnch_id;
+
+        var produ1 = await p_stock.findOneAndUpdate(
+          { product_id: productid, "quanitity.branch_id": barnch },
+          {
+            $inc: {
+              "quanitity.$.quanititys": quantity,
+            },
+          }
+        );
+      }
     }
 
     res.status(200).json({
