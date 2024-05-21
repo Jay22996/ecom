@@ -4,9 +4,7 @@ var orderitel = require("../Model/Order_tiemlist");
 var product = require("../Model/ProductModel");
 var rev = require("../Model/Branch_revenew");
 var coupne = require("../Model/Coupne_details");
-
-// const http = require("http");
-
+var p_stock = require("../Model/Product_stock");
 
 exports.add_to_cart = async (req, res) => {
   var id = req.params.id;
@@ -79,9 +77,12 @@ exports.update_to_cart = async (req, res) => {
 
 exports.order_generate = async (req, res) => {
   var data = await order.create(req.body);
-  var id = data.coupon_id
-  if(id !== ""){
-    var data1 = await coupne.findOneAndUpdate({coupne_code:id},{userOrnot:"use"})
+  var id = data.coupon_id;
+  if (id !== "") {
+    var data1 = await coupne.findOneAndUpdate(
+      { coupne_code: id },
+      { userOrnot: "use" }
+    );
   }
 
   res.status(200).json({
@@ -131,11 +132,18 @@ exports.place_order = async (req, res) => {
   );
   var data = await orderitel.create(req.body);
   var quantity = data.quantity;
-  var produ1 = await product.findByIdAndUpdate(
-    { _id: product_id },
-    { $inc: { stock_Id: quantity } }
-  );
 
+  var produ1 = await p_stock.findOneAndUpdate(
+    {
+      product_id: req.body.product_id,
+      "quanitity.branch_id": req.body.branch_id,
+    },
+    {
+      $inc: {
+        "quanitity.$.quanititys": -quantity,
+      },
+    }
+  );
   var orderitelid = data._id;
   var data1 = await order.findByIdAndUpdate(
     { _id: id },
@@ -153,42 +161,56 @@ exports.place_order = async (req, res) => {
 };
 
 exports.order_update = async (req, res) => {
-  // try {
-  var id = req.params.id;
-  var data1 = await order.findByIdAndUpdate(id, req.body);
-  var data = await order.findById(id);
+  try {
+    var id = req.params.id;
+    var data1 = await order.findByIdAndUpdate(id, req.body);
+    var data = await order.findById(id);
+    var orderitemss = data.orderitems;
 
-
-  if (req.body.status === "past order") {
-    console.log("hello");
-    const today = new Date();
-    const month = today.toLocaleString("default", { month: "long" });
-    console.log(month);
-    var updatedData = await rev.findOneAndUpdate(
-      { branch_id: data1.branch_id },
-      {
-        $inc: {
-          "revenew.$[elem].m_rev": data1.total_amount,
+    if (req.body.status === "past order") {
+      const today = new Date();
+      const month = today.toLocaleString("default", { month: "long" });
+      console.log(month);
+      var updatedData = await rev.findOneAndUpdate(
+        { branch_id: data1.branch_id },
+        {
+          $inc: {
+            "revenew.$[elem].m_rev": data1.total_amount,
+          },
         },
-      },
-      {
-        arrayFilters: [{ "elem.month": month }],
-        new: true,
+        {
+          arrayFilters: [{ "elem.month": month }],
+          new: true,
+        }
+      );
+    } else if (req.body.status === "rejected") {
+      for (let i = 0; i < orderitemss.length; i++) {
+        var item = orderitemss[i].orderitem_id;
+
+        var isdata = await orderitel.findById(item);
+        var quantity = isdata.quantity;
+        var productid = isdata.product_id;
+        var barnch = isdata.barnch_id;
+
+        var produ1 = await p_stock.findOneAndUpdate(
+          { product_id: productid, "quanitity.branch_id": barnch },
+          {
+            $inc: {
+              "quanitity.$.quanititys": quantity,
+            },
+          }
+        );
       }
-    );
+    }
 
-    // Assuming you want to retrieve the updated document
-    // console.log("Updated Data:", updatedData);
+    res.status(200).json({
+      status: "update done",
+      data: data,
+      updatedData,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error });
   }
-
-  res.status(200).json({
-    status: "update done",
-    data: data,
-    updatedData,
-  });
-  // } catch (error) {
-  //   res.status(500).json({ error: error });
-  // }
 };
 
 exports.rev_show = async (req, res) => {

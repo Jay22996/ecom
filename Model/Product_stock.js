@@ -5,7 +5,7 @@ var product_stock_schema = new mongoose.Schema({
   product_id: { type: mongoose.Schema.Types.ObjectId, ref: "Product_detail" },
   quanitity: [{
     branch_id:{type: mongoose.Schema.Types.ObjectId, ref: "branch_detail" },
-    quanititys:{type: String}
+    quanititys:{type: Number}
   }],
 });
 
