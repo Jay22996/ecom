@@ -3,7 +3,6 @@ var rev = require("../Model/Branch_revenew");
 var admin = require("../Model/Branch_detail");
 const bcrypt = require("bcrypt");
 
-
 exports.s = async (req, res) => {
   var data = await rev.create(req.body);
   res.status(200).json({
@@ -13,7 +12,7 @@ exports.s = async (req, res) => {
 };
 
 exports.addbranch = async (req, res) => {
-  var  password = await bcrypt.hash(req.body.password, 10);
+  var password = await bcrypt.hash(req.body.password, 10);
   req.body.password = password;
   var data = await branch.create(req.body);
   var id = data._id;
@@ -50,8 +49,16 @@ exports.addbranch = async (req, res) => {
 
 exports.updatebranch = async (req, res) => {
   var id = req.params.id;
-  var data = await branch.findByIdAndUpdate(id, req.body);
-  
+
+  if (req.body.password) {
+    var password = await bcrypt.hash(req.body.password, 10);
+    req.body.password = password;
+    var data = await branch.findByIdAndUpdate(id, req.body);
+  }else{
+
+    var data = await branch.findByIdAndUpdate(id, req.body);
+  }
+
   res.status(200).json({
     status: "update branch",
     data,
@@ -68,7 +75,6 @@ exports.datelebranch = async (req, res) => {
 };
 
 exports.showallbranch = async (req, res) => {
-  
   var data = await branch.find();
   res.status(200).json({
     status: "show branch",
