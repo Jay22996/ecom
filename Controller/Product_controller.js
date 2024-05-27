@@ -199,7 +199,7 @@ exports.productstatus = async (req, res) => {
 
 exports.show_yes = async (req, res) => {
   var data = await product
-    .find({ show: "yes" })
+    .find({ show: "show" })
     .populate("category_id")
     .populate("brand_id");
   res.status(200).json({
