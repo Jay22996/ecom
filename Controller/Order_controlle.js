@@ -170,7 +170,6 @@ exports.order_update = async (req, res) => {
     if (req.body.status === "past order") {
       const today = new Date();
       const month = today.toLocaleString("default", { month: "long" });
-      console.log(month);
       var updatedData = await rev.findOneAndUpdate(
         { branch_id: data1.branch_id },
         {
@@ -185,6 +184,7 @@ exports.order_update = async (req, res) => {
       );
     } else if (req.body.status === "rejected") {
       for (let i = 0; i < orderitemss.length; i++) {
+        console.log(orderitemss.length);
         var item = orderitemss[i].orderitem_id;
 
         var isdata = await orderitel.findById(item);
@@ -193,7 +193,7 @@ exports.order_update = async (req, res) => {
         var barnch = isdata.barnch_id;
 
         var produ1 = await p_stock.findOneAndUpdate(
-          { product_id: productid, "quanitity.branch_id": barnch },
+          { product_id: productid, "quanitity.branch_id": data1.branch_id },
           {
             $inc: {
               "quanitity.$.quanititys": quantity,
@@ -202,8 +202,12 @@ exports.order_update = async (req, res) => {
         );
       }
     } else if (req.body.status === "cancel") {
+      console.log("cancel");
+
       for (let i = 0; i < orderitemss.length; i++) {
         var item = orderitemss[i].orderitem_id;
+        console.log(item);
+        console.log(orderitemss.length);
 
         var isdata = await orderitel.findById(item);
         var quantity = isdata.quantity;
@@ -211,7 +215,7 @@ exports.order_update = async (req, res) => {
         var barnch = isdata.barnch_id;
 
         var produ1 = await p_stock.findOneAndUpdate(
-          { product_id: productid, "quanitity.branch_id": barnch },
+          { product_id: productid, "quanitity.branch_id": data1.branch_id },
           {
             $inc: {
               "quanitity.$.quanititys": quantity,
