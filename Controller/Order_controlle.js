@@ -201,7 +201,7 @@ exports.order_update = async (req, res) => {
           }
         );
       }
-    } else if (req.body.status === "cancele order") {
+    } else if (req.body.status === "cancel") {
       for (let i = 0; i < orderitemss.length; i++) {
         var item = orderitemss[i].orderitem_id;
 
