@@ -30,13 +30,13 @@ exports.verify = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "studentcreative79@gmail.com",
-          pass: "mgvywuvapoijukrb",
+          user: "pcuser.ecom@gmail.com",
+          pass: "dbxenmzgsbozhwzt",
         },
       });
 
       const mailOptions = {
-        from: "studentcreative79@gmail.com",
+        from: "pcuser.ecom@gmail.com",
         to: `${email}`,
         subject: "One Time Otp",
         text: `${otp}`,
@@ -221,13 +221,13 @@ exports.find_data = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "studentcreative79@gmail.com",
-          pass: "mgvywuvapoijukrb",
+          user: "pcuser.ecom@gmail.com",
+          pass: "dbxenmzgsbozhwzt",
         },
       });
 
       const mailOptions = {
-        from: "studentcreative79@gmail.com",
+        from: "pcuser.ecom@gmail.com",
         to: `${email}`,
         subject: "One Time Otp",
         text: `${otp}`,
