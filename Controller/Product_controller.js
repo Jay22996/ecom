@@ -71,24 +71,78 @@ exports.product_quantity = async (req, res) => {
     },
   });
   if (data1 === null) {
-    var data2 = await p_stock.findOneAndUpdate({product_id: id}, {
-      $push: {
-        quanitity: {
-          quanititys: req.body.quanitity,
-          branch_id: req.body.branch_id,
-        },
-      },
-    });
-  } else {
-    var data3 = await p_stock.findOneAndUpdate(
-      { product_id: id, "quanitity.branch_id": req.body.branch_id },
-      {
-        $set: {
-          "quanitity.$.quanititys": req.body.quanitity,
-        },
-      },
-      { new: true }
-    );
+      if(req.body.branch_id !== "664aca474de093734eb7e209"){
+        var data2 = await p_stock.findOneAndUpdate({product_id: id}, {
+          $push: {
+            quanitity: {
+              quanititys: req.body.quanitity,
+              branch_id: req.body.branch_id,
+            },
+          },
+        });
+        var data5 = await p_stock.findOneAndUpdate(
+          { product_id: id, "quanitity.branch_id": "664aca474de093734eb7e209" },
+          {
+            $inc: {
+              "quanitity.$.quanititys": -req.body.quanitity 
+            }
+          },
+          { new: true }
+        );
+
+      }else{
+        var data6 = await p_stock.findOneAndUpdate({product_id: id}, {
+          $push: {
+            quanitity: {
+              quanititys: req.body.quanitity,
+              branch_id: req.body.branch_id,
+            },
+          },
+        });
+      }
+  } else{
+    if(req.body.action === "add"){
+      if(req.body.branch_id === "664aca474de093734eb7e209"){
+        var data3 = await p_stock.findOneAndUpdate(
+          { product_id: id, "quanitity.branch_id": "664aca474de093734eb7e209" },
+          {
+            $inc: {
+              "quanitity.$.quanititys": req.body.quanitity,
+            },
+          },
+          { new: true }
+        );
+      }else{
+        var data12 = await p_stock.findOneAndUpdate(
+          { product_id: id, "quanitity.branch_id": req.body.branch_id },
+          {
+            $inc: {
+              "quanitity.$.quanititys": req.body.quanitity,
+            },
+          },
+          { new: true }
+        );
+        var data7 = await p_stock.findOneAndUpdate(
+          { product_id: id, "quanitity.branch_id": "664aca474de093734eb7e209" },
+          {
+            $inc: {
+              "quanitity.$.quanititys": -req.body.quanitity,
+            },
+          },
+          { new: true }
+        );
+      }
+    }else if(req.body.action === "remove"){
+        var data10 = await p_stock.findOneAndUpdate(
+          { product_id: id, "quanitity.branch_id": req.body.branch_id },
+          {
+            $inc: {
+              "quanitity.$.quanititys": -req.body.quanitity,
+            },
+          },
+          { new: true }
+        );
+    }
   }
   var data = await stock.find().populate("product_id")
 
