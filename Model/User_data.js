@@ -15,6 +15,9 @@ var User_schema = new mongoose.Schema({
   lat: { type: String },
   lon: { type: String },
   token: { type: String, default: "" },
+  ref:[{
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User_data" },
+  }],
 });
 
 module.exports = mongoose.model("User_data", User_schema);
