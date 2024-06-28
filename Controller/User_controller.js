@@ -31,7 +31,7 @@ exports.verify = async (req, res) => {
         service: "gmail",
         auth: {
           user: "pcuser.ecom@gmail.com",
-          pass: "dbxenmzgsbozhwzt",
+          pass: "rptmxjemjsvhyjck",
         },
       });
 
@@ -222,7 +222,7 @@ exports.find_data = async (req, res) => {
         service: "gmail",
         auth: {
           user: "pcuser.ecom@gmail.com",
-          pass: "dbxenmzgsbozhwzt",
+          pass: "rptmxjemjsvhyjck",
         },
       });
 
