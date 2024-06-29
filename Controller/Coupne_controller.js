@@ -23,7 +23,7 @@ exports.addcoupne = async (req, res) => {
 };
 
 exports.showc = async (req, res) => {
-  var data1 = await coupne.find();
+  var data1 = await coupne.find().populate("useby").populate("useby.user_id")
   res.status(200).json({
     status: "find",
     data1,
@@ -103,6 +103,7 @@ exports.coupneuse = async (req, res) => {
       }
       res.status(200).json({
         status: "not use",
+        data1:data1
       });
     } else {
       res.status(200).json({

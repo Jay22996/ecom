@@ -110,7 +110,7 @@ exports.finduser = async (req, res) => {
 };
 
 exports.find = async (req, res) => {
-  var data = await userModel.find().populate("p_address");
+  var data = await userModel.find().populate("p_address").populate("ref.user_id");
   res.status(200).json({
     status: "find",
     data,
