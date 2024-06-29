@@ -148,6 +148,10 @@ exports.ref = async (req, res) => {
     req.body.generateby = "ref";
     var data = await coupne.create(req.body);
 
+    await user.findByIdAndUpdate(user_id._id,{
+       $push: { 'ref.user_id': req.body.useId } ,
+    })
+
     res.status(200).json({
       status: "coupne create",
       data,
