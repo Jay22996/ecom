@@ -74,7 +74,7 @@ exports.coupne_status = async (req, res) => {
 
   var data1 = await coupne.findOneAndUpdate(
     { coupne_code: coupne_code },
-      { $push: { 'useby.user_id': userid } },
+      { $push: { useby:{user_id: userid} } },
   );
 
   res.status(200).json({
