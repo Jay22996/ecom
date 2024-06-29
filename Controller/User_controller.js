@@ -7,7 +7,6 @@ var like = require("../Model/LikeList");
 var ureq = require("../Model/Resellerrrrq");
 var bill = require("../Model/Bill_details");
 
-
 var otp = "";
 var email = "";
 var password = "";
@@ -20,7 +19,7 @@ exports.verify = async (req, res) => {
   } else {
     otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
-      lowerCaseAlphabets:false,
+      lowerCaseAlphabets: false,
       specialChars: false,
     });
     email = req.body.email;
@@ -110,7 +109,10 @@ exports.finduser = async (req, res) => {
 };
 
 exports.find = async (req, res) => {
-  var data = await userModel.find().populate("p_address").populate("ref.user_id");
+  var data = await userModel
+    .find()
+    .populate("p_address")
+    .populate("ref.user_id");
   res.status(200).json({
     status: "find",
     data,
@@ -257,7 +259,7 @@ exports.find_data = async (req, res) => {
 };
 
 exports.bill_details = async (req, res) => {
-  var id = "663daa66f230883b8b6667e7"
+  var id = "663daa66f230883b8b6667e7";
   var data = await bill.findById(id);
 
   res.status(200).json({
@@ -267,8 +269,8 @@ exports.bill_details = async (req, res) => {
 };
 
 exports.bill_update = async (req, res) => {
-  var id = "663daa66f230883b8b6667e7"
-  var data = await bill.findByIdAndUpdate(id,req.body);
+  var id = "663daa66f230883b8b6667e7";
+  var data = await bill.findByIdAndUpdate(id, req.body);
 
   res.status(200).json({
     status: "done",
@@ -277,16 +279,12 @@ exports.bill_update = async (req, res) => {
 };
 
 exports.user_token = async (req, res) => {
-  var tokens = await userModel.find({},"token");
+  var tokens = await userModel.find({}, "token");
 
-  const data = tokens.map(user => user.token);
+  const data = tokens.map((user) => user.token);
 
   res.status(200).json({
     status: "done",
     data,
   });
 };
-
-
-
-
