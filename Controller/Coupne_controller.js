@@ -43,14 +43,7 @@ exports.cdelete = async (req, res) => {
 
 exports.cupdate = async (req, res) => {
   var code = req.params.id
-  console.log(req.body.coupne_code);
-  console.log(req.body.discountPer);
-  console.log(req.body.ex_date);
-  console.log(req.body.max_discountPer);
-  console.log(req.body.usenumber);
-
-
-  var data1 = await coupne.findOneAndUpdate({coupne_code:code});
+  var data1 = await coupne.findOneAndUpdate({coupne_code:code},req.body);
   res.status(200).json({
     status: "update",
     data1,
@@ -126,12 +119,10 @@ exports.coupneuse = async (req, res) => {
 
 exports.ref = async (req, res) => {
   var user_mobile = req.body.refmobile;
-
-  var user_id = user.findOne({ mobile_number: user_mobile });
-
+  var user_id = await user.findOne({ mobile_number: user_mobile });
+  
   if (user_id !== null) {
     let today = new Date();
-
     // Create a new date object for one month from today
     let nextMonth = new Date();
     nextMonth.setMonth(today.getMonth() + 1);
