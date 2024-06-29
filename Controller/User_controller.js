@@ -276,4 +276,17 @@ exports.bill_update = async (req, res) => {
   });
 };
 
+exports.user_token = async (req, res) => {
+  var tokens = await userModel.find({},"token");
+
+  const data = tokens.map(user => user.token);
+
+  res.status(200).json({
+    status: "done",
+    data,
+  });
+};
+
+
+
 

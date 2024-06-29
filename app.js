@@ -22,6 +22,7 @@ const corsOptions = {
   origin: [
     "https://pc-master-admin-web-ce7r.vercel.app",
     "http://localhost:3000",
+    "http://localhost:3001",
   ],
 
   methods: "GET , POST",

@@ -16,6 +16,7 @@ const {
   find,
   bill_details,
   bill_update,
+  user_token,
 } = require("../Controller/User_controller");
 var router = express.Router();
 
@@ -36,6 +37,8 @@ router.post("/finduser", find_data);
 router.get("/find", find);
 router.get("/bill", bill_details);
 router.post("/billupdate", bill_update);
+router.get("/usertoken", user_token);
+
 
 
 
