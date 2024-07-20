@@ -23,7 +23,8 @@ const corsOptions = {
     "https://pc-master-admin-web-ce7r.vercel.app",
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://pc-user.vercel.app"
+    "https://pc-user.vercel.app",
+    "https://pccomputer.co.in"
   ],
 
   methods: "GET , POST",
